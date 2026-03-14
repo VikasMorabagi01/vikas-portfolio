@@ -48,6 +48,16 @@ export const data = {
   ],
   "projects": [
     {
+      "title": "Uber Mobility Analysis Dashboard",
+      "stack": ["Power BI", "DAX"],
+      "bullets": [
+        "Built an interactive Power BI dashboard analysing Uber ride bookings, revenue, distance, and ride duration to evaluate mobility efficiency and booking trends.",
+        "Developed dynamic KPI selection using DAX and a disconnected measure table to analyse Total Bookings, Booking Value, and Mobility Distance across multiple dimensions.",
+        "Performed location and time-based analysis identifying peak booking hours, top pickup and drop-off locations, and vehicle type preferences to improve operational planning.",
+        "Implemented advanced features including dynamic titles, slicers, bookmarks, drill-through pages, and conditional formatting to enhance user interaction and decision-making insights."
+      ]
+    },
+    {
       "title": "Meta Advertising Insights Dashboard",
       "stack": ["Power BI", "SQL", "DAX"],
       "bullets": [
