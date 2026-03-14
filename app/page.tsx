@@ -62,7 +62,7 @@ export default function Portfolio() {
           >
             {[
               { id: 'home', icon: <Terminal size={22} />, label: "Home" },
-              { id: 'experience', icon: <Briefcase size={22} />, label: "Experience" },
+              { id: 'experience', icon: <Briefcase size={22} />, label: "Internship" },
               { id: 'projects', icon: <Code2 size={22} />, label: "Projects" },
               { id: 'skills', icon: <Cpu size={22} />, label: "Skills" },
               { id: 'education', icon: <GraduationCap size={22} />, label: "Education" },
@@ -163,11 +163,11 @@ export default function Portfolio() {
               </motion.div>
             </section>
 
-            {/* 3. EXPERIENCE / INTERNSHIP */}
+            {/* 3. INTERNSHIP */}
             <section id="experience" className="scroll-mt-24">
               <div className="mb-12 border-b border-emerald-500/20 pb-4">
                 <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight uppercase flex items-center gap-4">
-                  <Briefcase className="text-emerald-500 h-10 w-10" /> Experience
+                  <Briefcase className="text-emerald-500 h-10 w-10" /> Internship
                 </h2>
               </div>
 
