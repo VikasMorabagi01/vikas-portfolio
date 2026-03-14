@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Download, Terminal, Briefcase, Code2, GraduationCap, ChevronRight, Github, Linkedin, Mail, ExternalLink, Cpu } from "lucide-react";
+import { Download, Terminal, Briefcase, Code2, GraduationCap, ChevronRight, Github, Linkedin, Cpu } from "lucide-react";
 import AnimatedBackground from "../components/AnimatedBackground";
 import { data } from "../data/resume"; 
 
@@ -61,7 +61,7 @@ export default function Portfolio() {
             className="fixed bottom-6 left-1/2 z-50 flex items-center gap-4 px-6 py-4 glass-panel rounded-full border border-emerald-500/20 shadow-[0_10px_40px_rgba(16,185,129,0.15)] backdrop-blur-md bg-slate-950/80"
           >
             {[
-              { id: 'home', icon: <Terminal size={22} />, label: "System" },
+              { id: 'home', icon: <Terminal size={22} />, label: "Home" },
               { id: 'experience', icon: <Briefcase size={22} />, label: "Experience" },
               { id: 'projects', icon: <Code2 size={22} />, label: "Projects" },
               { id: 'skills', icon: <Cpu size={22} />, label: "Skills" },
@@ -87,7 +87,7 @@ export default function Portfolio() {
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.1)_0%,transparent_50%)] pointer-events-none" />
               
               <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-emerald-400 font-mono tracking-[0.3em] uppercase text-sm mb-6 flex items-center gap-2">
-                <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" /> Data Analyst _
+                <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" /> {data.basics.title.split(' | ')[0]} _
               </motion.span>
 
               <motion.h1 
@@ -100,7 +100,7 @@ export default function Portfolio() {
 
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="flex gap-6 mt-8 z-10">
                 <button onClick={() => window.print()} className="px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold tracking-wide rounded-none border border-emerald-400 shadow-[4px_4px_0_#34d399] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#34d399] transition-all flex items-center gap-2">
-                  EXECUTE RESUME.EXE <Download size={18} />
+                  DOWNLOAD RESUME <Download size={18} />
                 </button>
                 <div className="flex gap-2">
                   <a href={`https://${data.basics.links[0].url}`} target="_blank" rel="noreferrer" className="p-4 glass-panel border-slate-700 hover:border-emerald-500 text-slate-300 hover:text-emerald-400 transition-colors">
@@ -113,11 +113,11 @@ export default function Portfolio() {
               </motion.div>
             </section>
 
-            {/* 2. ABOUT (APP WINDOW) */}
+            {/* 2. ABOUT ME */}
             <section className="scroll-mt-24">
               <div className="mb-12 border-b border-emerald-500/20 pb-4">
                 <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight uppercase flex items-center gap-4">
-                  <Terminal className="text-emerald-500 h-10 w-10" /> 01. Profile_Overview
+                  <Terminal className="text-emerald-500 h-10 w-10" /> About Me
                 </h2>
               </div>
 
@@ -132,25 +132,25 @@ export default function Portfolio() {
                     <div className="w-3 h-3 rounded-full bg-amber-500/80" />
                     <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
                   </div>
-                  <span className="ml-4 text-xs text-slate-500 font-mono flex-1 text-center pr-12">vikas_morabagi.exe</span>
+                  <span className="ml-4 text-xs text-slate-500 font-mono flex-1 text-center pr-12">Profile Overview</span>
                 </div>
                 
                 {/* Window Body */}
-                <div className="p-6 md:p-8 font-mono text-sm md:text-base leading-relaxed">
+                <div className="p-6 md:p-8 text-sm md:text-base leading-relaxed">
                   
-                  {/* About Me Label */}
-                  <h3 className="text-emerald-400 font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-emerald-500 animate-pulse" /> About Me
+                  {/* Summary */}
+                  <h3 className="text-emerald-400 font-bold uppercase tracking-widest mb-4 flex items-center gap-2 text-xs">
+                    <span className="w-2 h-2 bg-emerald-500 animate-pulse" /> Professional Summary
                   </h3>
-                  <p className="text-slate-300 mb-12">{data.basics.summary}</p>
+                  <p className="text-slate-300 mb-12 font-mono leading-loose">{data.basics.summary}</p>
                   
-                  {/* Key Metrics Label */}
-                  <h3 className="text-emerald-400 font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-teal-500 animate-pulse" /> Key Metrics
+                  {/* Key Metrics */}
+                  <h3 className="text-teal-400 font-bold uppercase tracking-widest mb-4 flex items-center gap-2 text-xs">
+                    <span className="w-2 h-2 bg-teal-500 animate-pulse" /> Key Achievements
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {data.achievements.slice(0, 4).map((ach, i) => (
-                      <div key={i} className="border border-emerald-500/20 bg-emerald-500/5 p-4 rounded text-center hover:bg-emerald-500/10 transition-colors flex flex-col justify-center h-full">
+                      <div key={i} className="border border-slate-800 bg-slate-900/50 p-4 rounded text-center hover:border-emerald-500/30 transition-colors flex flex-col justify-center h-full">
                         <div className="text-2xl font-black text-emerald-400 mb-2">{ach.metric}</div>
                         <div className="text-[10px] text-slate-400 uppercase tracking-widest line-clamp-3 leading-snug" title={ach.context}>
                           {ach.context}
@@ -163,11 +163,11 @@ export default function Portfolio() {
               </motion.div>
             </section>
 
-            {/* 3. EXPERIENCE */}
+            {/* 3. EXPERIENCE / INTERNSHIP */}
             <section id="experience" className="scroll-mt-24">
               <div className="mb-12 border-b border-emerald-500/20 pb-4">
                 <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight uppercase flex items-center gap-4">
-                  <Briefcase className="text-emerald-500 h-10 w-10" /> 02. Career_Log
+                  <Briefcase className="text-emerald-500 h-10 w-10" /> Experience
                 </h2>
               </div>
 
@@ -216,7 +216,7 @@ export default function Portfolio() {
             <section id="projects" className="scroll-mt-24">
               <div className="mb-12 border-b border-teal-500/20 pb-4">
                 <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight uppercase flex items-center gap-4">
-                  <Code2 className="text-teal-500 h-10 w-10" /> 03. Modules
+                  <Code2 className="text-teal-500 h-10 w-10" /> Projects
                 </h2>
               </div>
 
@@ -234,7 +234,6 @@ export default function Portfolio() {
                         <h3 className="text-xl font-bold text-white group-hover:text-teal-300 transition-colors w-5/6">
                           {proj.title}
                         </h3>
-                        <ExternalLink size={20} className="text-slate-600 group-hover:text-teal-400 transition-colors" />
                       </div>
                       <div className="flex flex-wrap gap-2 mb-6">
                         {proj.stack.map(tech => (
@@ -257,11 +256,11 @@ export default function Portfolio() {
               </div>
             </section>
 
-            {/* 5. SEPARATED SKILLS */}
+            {/* 5. SKILLS */}
             <section id="skills" className="scroll-mt-24">
               <div className="mb-12 border-b border-emerald-500/20 pb-4">
                 <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight uppercase flex items-center gap-4">
-                  <Cpu className="text-emerald-500 h-10 w-10" /> 04. Tech_Arsenal
+                  <Cpu className="text-emerald-500 h-10 w-10" /> Skills
                 </h2>
               </div>
 
@@ -291,7 +290,7 @@ export default function Portfolio() {
             <section id="education" className="scroll-mt-24">
               <div className="mb-12 border-b border-teal-500/20 pb-4">
                 <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight uppercase flex items-center gap-4">
-                  <GraduationCap className="text-teal-500 h-10 w-10" /> 05. Credentials
+                  <GraduationCap className="text-teal-500 h-10 w-10" /> Education & Certs
                 </h2>
               </div>
 
