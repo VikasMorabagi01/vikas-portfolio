@@ -1,35 +1,17 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Download, ExternalLink, Github, Linkedin, Mail } from "lucide-react";
+import { Download, ExternalLink, Github, Linkedin, Mail, ArrowUpRight, Database, PieChart, Code2 } from "lucide-react";
 import AnimatedBackground from "../components/AnimatedBackground";
 import { data } from "../data/resume"; 
 
 export default function Portfolio() {
   const [loading, setLoading] = useState(true);
-  const [activeSection, setActiveSection] = useState("about");
 
   // Splash Screen Timer
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1500);
     return () => clearTimeout(timer);
-  }, []);
-
-  // Scroll Spy Logic for Desktop Navigation
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ["about", "experience", "projects", "skills"];
-      const scrollPosition = window.scrollY + 100;
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element && scrollPosition >= element.offsetTop && scrollPosition < element.offsetTop + element.offsetHeight) {
-          setActiveSection(section);
-        }
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -63,180 +45,198 @@ export default function Portfolio() {
       </AnimatePresence>
 
       {!loading && (
-        <div className="mx-auto min-h-screen max-w-screen-xl px-6 py-12 md:px-12 md:py-20 lg:px-24 lg:py-0">
-          <div className="lg:flex lg:justify-between lg:gap-4">
+        <main className="relative z-10 w-full max-w-7xl mx-auto px-4 py-12 md:px-8 md:py-20 lg:py-24">
+          
+          {/* HEADER ROW */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+              <h1 className="text-5xl font-bold tracking-tight text-white mb-2">
+                {data.basics.name}
+              </h1>
+              <h2 className="text-xl font-medium text-emerald-400 flex items-center gap-2">
+                <Database size={20} /> {data.basics.title.split(' | ')[0]}
+              </h2>
+            </motion.div>
             
-            {/* LEFT SIDE: Sticky Sidebar (Header, Nav, Socials) */}
-            <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[48%] lg:flex-col lg:justify-between lg:py-24">
-              <div>
-                <motion.h1 
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-4xl font-bold tracking-tight text-slate-200 sm:text-5xl"
-                >
-                  {data.basics.name}
-                </motion.h1>
-                <motion.h2 
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                  className="mt-3 text-lg font-medium tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300 sm:text-xl"
-                >
-                  {data.basics.title}
-                </motion.h2>
-                <motion.p 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                  className="mt-4 max-w-xs leading-normal text-slate-400"
-                >
-                  Transforming complex datasets into actionable business intelligence.
-                </motion.p>
-
-                {/* Desktop Navigation */}
-                <nav className="nav hidden lg:block mt-16">
-                  <ul className="mt-8 w-max">
-                    {["about", "experience", "projects", "skills"].map((item) => (
-                      <li key={item}>
-                        <a 
-                          href={`#${item}`} 
-                          className={`group flex items-center py-3 ${activeSection === item ? "text-emerald-400" : "text-slate-500 hover:text-slate-200"} transition-all`}
-                        >
-                          <span className={`mr-4 h-px transition-all bg-emerald-400 group-hover:w-16 group-hover:bg-slate-200 ${activeSection === item ? "w-16" : "w-8 bg-slate-600"}`}></span>
-                          <span className="text-xs font-bold uppercase tracking-widest">{item}</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              </div>
-
-              {/* Contact & Social Links (Bottom Left) */}
-              <motion.ul 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                className="ml-1 mt-8 flex items-center gap-6 text-slate-400"
-              >
-                <li>
-                  <a href={`https://${data.basics.links.find(l => l.name === 'GitHub')?.url}`} target="_blank" rel="noreferrer" className="block hover:text-emerald-400 transition-colors">
-                    <Github className="h-6 w-6" />
-                  </a>
-                </li>
-                <li>
-                  <a href={`https://${data.basics.links.find(l => l.name === 'LinkedIn')?.url}`} target="_blank" rel="noreferrer" className="block hover:text-emerald-400 transition-colors">
-                    <Linkedin className="h-6 w-6" />
-                  </a>
-                </li>
-                <li>
-                  <a href={`mailto:${data.basics.email}`} className="block hover:text-emerald-400 transition-colors">
-                    <Mail className="h-6 w-6" />
-                  </a>
-                </li>
-                <li>
-                  <button onClick={() => window.print()} className="flex items-center gap-2 text-sm font-medium hover:text-emerald-400 transition-colors px-3 py-1 rounded-full border border-slate-700 hover:border-emerald-500/50">
-                    Resume <Download className="h-4 w-4" />
-                  </button>
-                </li>
-              </motion.ul>
-            </header>
-
-            {/* RIGHT SIDE: Scrolling Content */}
-            <main id="content" className="pt-24 lg:w-[52%] lg:py-24 flex flex-col gap-24">
-              
-              {/* ABOUT SECTION */}
-              <section id="about" className="scroll-mt-16 lg:scroll-mt-24 text-slate-400 leading-relaxed">
-                <p className="mb-4">{data.basics.summary}</p>
-                <div className="grid grid-cols-2 gap-4 mt-8">
-                  {data.achievements.slice(0, 4).map((ach, i) => (
-                    <div key={i} className="glass-panel p-4 rounded-xl flex flex-col">
-                      <span className="text-2xl font-bold text-emerald-400 mb-1">{ach.metric}</span>
-                      <span className="text-xs text-slate-500 leading-tight">{ach.context.substring(0, 60)}...</span>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* EXPERIENCE SECTION */}
-              <section id="experience" className="scroll-mt-16 lg:scroll-mt-24">
-                <ol className="group/list">
-                  {data.experience.map((exp, i) => (
-                    <li key={i} className="mb-12 transition-all hover:!opacity-100 group-hover/list:opacity-50">
-                      <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:hover:drop-shadow-lg lg:hover:bg-slate-800/50 lg:p-6 lg:-m-6 lg:rounded-2xl">
-                        <header className="z-10 mb-2 mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2">
-                          {exp.dates}
-                        </header>
-                        <div className="z-10 sm:col-span-6">
-                          <h3 className="font-medium leading-snug text-slate-200">
-                            <div>
-                              <span className="text-emerald-400">{exp.role}</span>
-                              <span className="text-slate-500"> · {exp.company}</span>
-                            </div>
-                          </h3>
-                          <ul className="mt-4 text-sm text-slate-400 space-y-3">
-                            {exp.bullets.map((bullet, j) => (
-                              <li key={j} className="flex gap-2">
-                                <span className="text-emerald-500/50">▹</span>
-                                <span>{bullet}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ol>
-              </section>
-
-              {/* PROJECTS SECTION */}
-              <section id="projects" className="scroll-mt-16 lg:scroll-mt-24">
-                <ol className="group/list">
-                  {data.projects.map((proj, i) => (
-                    <li key={i} className="mb-12 transition-all hover:!opacity-100 group-hover/list:opacity-50">
-                      <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4 lg:hover:!opacity-100 lg:hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.1)] lg:hover:drop-shadow-lg lg:hover:bg-slate-800/50 lg:p-6 lg:-m-6 lg:rounded-2xl">
-                        <div className="z-10 sm:col-span-8">
-                          <h3 className="font-medium leading-snug text-slate-200 mb-2 flex items-center gap-2">
-                            <span className="text-emerald-400">{proj.title}</span>
-                            <ExternalLink size={14} className="text-slate-500" />
-                          </h3>
-                          <p className="mt-2 text-sm text-slate-400 leading-normal">
-                            {proj.bullets[0]}
-                          </p>
-                          <div className="mt-4 flex flex-wrap gap-2">
-                            {proj.stack.map((tech) => (
-                              <div key={tech} className="flex items-center rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300">
-                                {tech}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ol>
-              </section>
-
-              {/* SKILLS SECTION */}
-              <section id="skills" className="scroll-mt-16 lg:scroll-mt-24 mb-24">
-                <div className="grid gap-6">
-                  {data.skills.map((skillGrp, i) => (
-                    <div key={i}>
-                      <h4 className="text-slate-200 font-semibold mb-3 text-sm">{skillGrp.category}</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {skillGrp.items.map((item, j) => (
-                          <span key={j} className="px-3 py-1 bg-slate-800 border border-slate-700 rounded-lg text-sm text-slate-400 hover:text-emerald-300 hover:border-emerald-500/30 transition-colors">
-                            {item}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-            </main>
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }} 
+              animate={{ opacity: 1, x: 0 }} 
+              transition={{ delay: 0.2 }}
+              className="flex gap-3"
+            >
+              <a href={`https://${data.basics.links.find(l => l.name === 'GitHub')?.url}`} target="_blank" rel="noreferrer" className="p-3 bg-white/5 hover:bg-emerald-500/20 border border-white/10 rounded-xl transition-colors text-slate-300 hover:text-emerald-400">
+                <Github size={20} />
+              </a>
+              <a href={`https://${data.basics.links.find(l => l.name === 'LinkedIn')?.url}`} target="_blank" rel="noreferrer" className="p-3 bg-white/5 hover:bg-emerald-500/20 border border-white/10 rounded-xl transition-colors text-slate-300 hover:text-emerald-400">
+                <Linkedin size={20} />
+              </a>
+              <a href={`mailto:${data.basics.email}`} className="p-3 bg-white/5 hover:bg-emerald-500/20 border border-white/10 rounded-xl transition-colors text-slate-300 hover:text-emerald-400">
+                <Mail size={20} />
+              </a>
+              <button onClick={() => window.print()} className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-medium rounded-xl flex items-center gap-2 shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-colors">
+                Resume <Download size={18} />
+              </button>
+            </motion.div>
           </div>
-        </div>
+
+          {/* BENTO GRID */}
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[160px]">
+            
+            {/* Box 1: About Me (Spans 2 columns, 2 rows) */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
+              className="col-span-1 md:col-span-2 row-span-2 glass-panel p-8 rounded-3xl relative overflow-hidden group hover:border-emerald-500/30 transition-colors flex flex-col justify-center"
+            >
+              <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl" />
+              <h3 className="text-sm font-bold tracking-widest text-slate-500 uppercase mb-4">About Me</h3>
+              <p className="text-lg text-slate-300 leading-relaxed font-medium">
+                I am a Data Analyst skilled in Python, SQL, and Power BI. I specialize in transforming complex ETL pipelines and building interactive dashboards that drive 
+                <span className="text-emerald-400"> data-driven business decisions</span> and performance optimization.
+              </p>
+              <div className="mt-8 flex gap-2 flex-wrap">
+                <span className="px-3 py-1 bg-slate-800 rounded-full text-xs text-slate-300 border border-slate-700">📍 {data.basics.location}</span>
+                <span className="px-3 py-1 bg-slate-800 rounded-full text-xs text-slate-300 border border-slate-700">🎓 Computer Engineering (CGPA: 7.4)</span>
+              </div>
+            </motion.div>
+
+            {/* Box 2: Core Tool 1 (Power BI) */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
+              className="glass-panel p-6 rounded-3xl flex flex-col justify-between hover:bg-white/10 transition-colors"
+            >
+              <PieChart className="text-emerald-400 h-8 w-8" />
+              <div>
+                <h4 className="text-white font-bold text-xl">Power BI</h4>
+                <p className="text-xs text-slate-400 mt-1">DAX, Star Schema, Dashboards</p>
+              </div>
+            </motion.div>
+
+            {/* Box 3: Highlight Metric 1 */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
+              className="glass-panel p-6 rounded-3xl bg-emerald-500/10 border-emerald-500/20 flex flex-col justify-center items-center text-center"
+            >
+              <span className="text-5xl font-black text-emerald-400 mb-2">{data.achievements[1].metric}</span>
+              <span className="text-xs font-medium text-slate-300 px-2 leading-tight">Reduction in manual reporting cycles via automated dashboards</span>
+            </motion.div>
+
+            {/* Box 4: Highlight Metric 2 */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.4 }}
+              className="glass-panel p-6 rounded-3xl bg-teal-500/10 border-teal-500/20 flex flex-col justify-center items-center text-center"
+            >
+              <span className="text-5xl font-black text-teal-400 mb-2">{data.achievements[0].metric}</span>
+              <span className="text-xs font-medium text-slate-300 px-2 leading-tight">Improved simulated cloud resource utilization via Azure config</span>
+            </motion.div>
+
+            {/* Box 5: Core Tool 2 (Python & SQL) */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.5 }}
+              className="glass-panel p-6 rounded-3xl flex flex-col justify-between hover:bg-white/10 transition-colors"
+            >
+              <Code2 className="text-emerald-400 h-8 w-8" />
+              <div>
+                <h4 className="text-white font-bold text-xl">Python & SQL</h4>
+                <p className="text-xs text-slate-400 mt-1">Pandas, CTEs, Window Functions</p>
+              </div>
+            </motion.div>
+
+            {/* Box 6: Latest Experience (Spans 2 columns) */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.6 }}
+              className="col-span-1 md:col-span-2 row-span-1 glass-panel p-6 rounded-3xl group flex flex-col justify-center"
+            >
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <h3 className="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">{data.experience[0].role}</h3>
+                  <p className="text-sm text-slate-400">{data.experience[0].company}</p>
+                </div>
+                <span className="text-xs font-medium text-emerald-500/80 bg-emerald-500/10 px-3 py-1 rounded-full">{data.experience[0].dates}</span>
+              </div>
+              <p className="text-sm text-slate-300 mt-2 line-clamp-2 leading-relaxed">
+                {data.experience[0].bullets[0]}
+              </p>
+            </motion.div>
+
+            {/* Box 7: Project 1 (Spans 2 columns, 2 rows) */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.7 }}
+              className="col-span-1 md:col-span-2 row-span-2 glass-panel p-8 rounded-3xl relative overflow-hidden group hover:border-emerald-500/50 transition-all flex flex-col"
+            >
+              <div className="absolute top-4 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                <ArrowUpRight className="text-emerald-400 h-6 w-6" />
+              </div>
+              <h3 className="text-xs font-bold tracking-widest text-emerald-400 uppercase mb-4">Featured Project</h3>
+              <h4 className="text-2xl font-bold text-white mb-2">{data.projects[0].title}</h4>
+              <div className="flex gap-2 mb-6">
+                {data.projects[0].stack.map(tech => (
+                  <span key={tech} className="text-xs px-2 py-1 bg-white/10 rounded-md text-slate-300">{tech}</span>
+                ))}
+              </div>
+              <ul className="space-y-3 mt-auto">
+                {data.projects[0].bullets.slice(0, 2).map((bullet, i) => (
+                  <li key={i} className="text-sm text-slate-400 flex gap-3">
+                    <span className="text-emerald-500 mt-1">▹</span>
+                    <span className="leading-relaxed">{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Box 8: Project 2 (Spans 2 columns) */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.8 }}
+              className="col-span-1 md:col-span-2 row-span-1 glass-panel p-6 rounded-3xl group flex flex-col justify-center hover:bg-white/10 transition-colors"
+            >
+              <div className="flex justify-between items-start mb-2">
+                <h4 className="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">{data.projects[1].title}</h4>
+                <div className="flex gap-1 hidden sm:flex">
+                  {data.projects[1].stack.map(tech => (
+                    <span key={tech} className="text-[10px] px-2 py-1 bg-white/5 rounded text-slate-400">{tech}</span>
+                  ))}
+                </div>
+              </div>
+              <p className="text-sm text-slate-400 line-clamp-2">
+                {data.projects[1].bullets[0]}
+              </p>
+            </motion.div>
+
+            {/* Box 9: Project 3 (Spans 2 columns) */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.9 }}
+              className="col-span-1 md:col-span-2 row-span-1 glass-panel p-6 rounded-3xl group flex flex-col justify-center hover:bg-white/10 transition-colors"
+            >
+              <div className="flex justify-between items-start mb-2">
+                <h4 className="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">{data.projects[2].title}</h4>
+                <div className="flex gap-1 hidden sm:flex">
+                  {data.projects[2].stack.map(tech => (
+                    <span key={tech} className="text-[10px] px-2 py-1 bg-white/5 rounded text-slate-400">{tech}</span>
+                  ))}
+                </div>
+              </div>
+              <p className="text-sm text-slate-400 line-clamp-2">
+                {data.projects[2].bullets[0]}
+              </p>
+            </motion.div>
+
+          </div>
+
+          {/* FULL SKILLS LIST ROW */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="mt-4 glass-panel p-8 rounded-3xl"
+          >
+             <h3 className="text-sm font-bold tracking-widest text-slate-500 uppercase mb-6">Complete Tech Stack</h3>
+             <div className="flex flex-wrap gap-3">
+                {data.skills.flatMap(group => group.items).map((skill, i) => (
+                  <span key={i} className="px-4 py-2 bg-slate-800/50 border border-slate-700/50 rounded-xl text-sm font-medium text-slate-300 hover:text-emerald-300 hover:border-emerald-500/50 transition-colors cursor-default">
+                    {skill.split('(')[0].trim()}
+                  </span>
+                ))}
+             </div>
+          </motion.div>
+
+        </main>
       )}
     </>
   );
