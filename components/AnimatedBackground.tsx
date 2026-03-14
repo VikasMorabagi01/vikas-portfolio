@@ -10,7 +10,6 @@ export default function AnimatedBackground() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Respect reduced motion
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
@@ -19,7 +18,6 @@ export default function AnimatedBackground() {
     let w = (canvas.width = window.innerWidth);
     let h = (canvas.height = window.innerHeight);
 
-    // Limit particles on mobile
     const particleCount = w < 768 ? 35 : 80;
 
     class Particle {
@@ -48,7 +46,8 @@ export default function AnimatedBackground() {
         if (!ctx) return;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(100, 200, 255, 0.5)";
+        // CHANGED TO EMERALD GREEN
+        ctx.fillStyle = "rgba(52, 211, 153, 0.5)";
         ctx.fill();
       }
     }
@@ -63,14 +62,12 @@ export default function AnimatedBackground() {
     const animate = () => {
       ctx.clearRect(0, 0, w, h);
       
-      // Draw background soft gradient
       const gradient = ctx.createLinearGradient(0, 0, w, h);
-      gradient.addColorStop(0, "rgba(10, 15, 30, 1)");
-      gradient.addColorStop(1, "rgba(5, 8, 15, 1)");
+      gradient.addColorStop(0, "rgba(10, 15, 20, 1)");
+      gradient.addColorStop(1, "rgba(5, 8, 10, 1)");
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, w, h);
 
-      // Connect particles
       for (let i = 0; i < particles.length; i++) {
         particles[i].update();
         particles[i].draw();
@@ -81,7 +78,8 @@ export default function AnimatedBackground() {
           
           if (distance < 120) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(100, 200, 255, ${0.15 - distance / 800})`;
+            // CHANGED TO EMERALD GREEN
+            ctx.strokeStyle = `rgba(52, 211, 153, ${0.15 - distance / 800})`;
             ctx.lineWidth = 0.5;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
