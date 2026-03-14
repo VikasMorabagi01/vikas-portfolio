@@ -80,7 +80,7 @@ export default function Portfolio() {
             ))}
           </motion.div>
 
-          <div className="max-w-5xl mx-auto space-y-40"> {/* INCREASED SPACING BETWEEN SECTIONS */}
+          <div className="max-w-5xl mx-auto space-y-40">
             
             {/* 1. CINEMATIC HERO */}
             <section id="home" className="min-h-[85vh] flex flex-col justify-center items-center text-center relative pt-10">
@@ -113,12 +113,11 @@ export default function Portfolio() {
               </motion.div>
             </section>
 
-            {/* 2. ABOUT (HACKER TERMINAL) */}
+            {/* 2. ABOUT (APP WINDOW) */}
             <section className="scroll-mt-24">
-              {/* Massive Section Header */}
               <div className="mb-12 border-b border-emerald-500/20 pb-4">
                 <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight uppercase flex items-center gap-4">
-                  <Terminal className="text-emerald-500 h-10 w-10" /> 01. About_Me
+                  <Terminal className="text-emerald-500 h-10 w-10" /> 01. Profile_Overview
                 </h2>
               </div>
 
@@ -126,31 +125,40 @@ export default function Portfolio() {
                 initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                 className="rounded-xl bg-[#0a0f16] border border-slate-800 overflow-hidden shadow-[0_0_50px_rgba(16,185,129,0.05)]"
               >
-                {/* Terminal Header */}
+                {/* Window Header */}
                 <div className="bg-[#111823] border-b border-slate-800 px-4 py-3 flex items-center gap-2">
                   <div className="flex gap-2">
                     <div className="w-3 h-3 rounded-full bg-rose-500/80" />
                     <div className="w-3 h-3 rounded-full bg-amber-500/80" />
                     <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
                   </div>
-                  <span className="ml-4 text-xs text-slate-500 font-mono flex-1 text-center pr-12">vikas@mainframe: ~/system_info</span>
+                  <span className="ml-4 text-xs text-slate-500 font-mono flex-1 text-center pr-12">vikas_morabagi.exe</span>
                 </div>
                 
-                {/* Terminal Body */}
+                {/* Window Body */}
                 <div className="p-6 md:p-8 font-mono text-sm md:text-base leading-relaxed">
-                  <p className="text-emerald-400 mb-4"><span className="text-slate-500">➜</span> <span className="text-teal-300">~</span> cat bio.txt</p>
+                  
+                  {/* About Me Label */}
+                  <h3 className="text-emerald-400 font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <span className="w-2 h-2 bg-emerald-500 animate-pulse" /> About Me
+                  </h3>
                   <p className="text-slate-300 mb-12">{data.basics.summary}</p>
                   
-                  <p className="text-emerald-400 mb-4"><span className="text-slate-500">➜</span> <span className="text-teal-300">~</span> ./load_metrics.sh</p>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                  {/* Key Metrics Label */}
+                  <h3 className="text-emerald-400 font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <span className="w-2 h-2 bg-teal-500 animate-pulse" /> Key Metrics
+                  </h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {data.achievements.slice(0, 4).map((ach, i) => (
-                      <div key={i} className="border border-emerald-500/20 bg-emerald-500/5 p-4 rounded text-center hover:bg-emerald-500/10 transition-colors">
-                        <div className="text-2xl font-black text-emerald-400 mb-1">{ach.metric}</div>
-                        <div className="text-[10px] text-slate-400 uppercase tracking-widest">{ach.context.substring(0,40)}...</div>
+                      <div key={i} className="border border-emerald-500/20 bg-emerald-500/5 p-4 rounded text-center hover:bg-emerald-500/10 transition-colors flex flex-col justify-center h-full">
+                        <div className="text-2xl font-black text-emerald-400 mb-2">{ach.metric}</div>
+                        <div className="text-[10px] text-slate-400 uppercase tracking-widest line-clamp-3 leading-snug" title={ach.context}>
+                          {ach.context}
+                        </div>
                       </div>
                     ))}
                   </div>
-                  <span className="animate-pulse text-emerald-400 px-2 py-1 mt-4 inline-block">_</span>
+
                 </div>
               </motion.div>
             </section>
