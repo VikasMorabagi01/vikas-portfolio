@@ -217,7 +217,7 @@ export default function Portfolio() {
                 </h2>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-8">
                 {data.projects.map((proj, i) => (
                   <motion.div 
                     key={i}
@@ -225,10 +225,26 @@ export default function Portfolio() {
                     whileHover={{ scale: 1.02 }}
                     className="group glass-panel rounded-2xl border-slate-800 hover:border-yellow-500/50 overflow-hidden flex flex-col h-full relative"
                   >
-                    <div className="h-2 w-full bg-slate-800 group-hover:bg-gradient-to-r group-hover:from-amber-500 group-hover:to-yellow-400 transition-all" />
-                    <div className="p-8 flex flex-col flex-grow">
+                    <div className="h-2 w-full bg-slate-800 group-hover:bg-gradient-to-r group-hover:from-amber-500 group-hover:to-yellow-400 transition-all z-20 relative" />
+                    
+                    {/* NEW IMAGE CONTAINER */}
+                    {proj.image && (
+                      <div className="w-full h-48 md:h-56 overflow-hidden relative border-b border-slate-800">
+                        {/* Fallback gray background while image loads */}
+                        <div className="absolute inset-0 bg-slate-900" />
+                        <img 
+                          src={proj.image} 
+                          alt={proj.title}
+                          className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 relative z-10"
+                        />
+                        {/* Gradient overlay to blend image into the card */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f16] via-transparent to-transparent z-10" />
+                      </div>
+                    )}
+
+                    <div className="p-8 flex flex-col flex-grow relative z-20">
                       <div className="flex justify-between items-start mb-6">
-                        <h3 className="text-xl font-bold text-white group-hover:text-yellow-300 transition-colors w-5/6">
+                        <h3 className="text-xl font-bold text-white group-hover:text-yellow-300 transition-colors w-full">
                           {proj.title}
                         </h3>
                       </div>

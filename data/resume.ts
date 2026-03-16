@@ -46,9 +46,12 @@ export const data = {
       ]
     }
   ],
+  // ... (leave the top part of your data file unchanged) ...
+
   "projects": [
     {
       "title": "Uber Mobility Analysis Dashboard",
+      "image": "/projects/uber.jpg", // ADD THIS LINE (Must match your image filename)
       "stack": ["Power BI", "DAX"],
       "bullets": [
         "Built an interactive Power BI dashboard analysing Uber ride bookings, revenue, distance, and ride duration to evaluate mobility efficiency and booking trends.",
@@ -59,6 +62,7 @@ export const data = {
     },
     {
       "title": "Meta Advertising Insights Dashboard",
+      "image": "/projects/meta.jpg", // ADD THIS LINE
       "stack": ["Power BI", "SQL", "DAX"],
       "bullets": [
         "Designed and implemented an end-to-end KPI dashboard analyzing 50,000+ ad impressions using Star Schema modeling and advanced DAX measures.",
@@ -68,6 +72,7 @@ export const data = {
     },
     {
       "title": "Telecom Customer Churn Analysis",
+      "image": "/projects/churn.jpg", // ADD THIS LINE
       "stack": ["Python", "Statistical Modeling"],
       "bullets": [
         "Processed and analyzed 7,043 customer records, identifying a 26.5% churn rate using correlation analysis and feature exploration.",
@@ -77,6 +82,7 @@ export const data = {
     },
     {
       "title": "Netflix Content Analytics",
+      "image": "/projects/netflix.jpg", // ADD THIS LINE
       "stack": ["PostgreSQL"],
       "bullets": [
         "Queried and transformed 8,800+ records solving 15 business intelligence use cases related to content strategy and regional distribution.",
