@@ -46,8 +46,8 @@ export default function AnimatedBackground() {
         if (!ctx) return;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        // CHANGED TO EMERALD GREEN
-        ctx.fillStyle = "rgba(52, 211, 153, 0.5)";
+        // CHANGED TO AMBER/GOLD
+        ctx.fillStyle = "rgba(251, 191, 36, 0.5)";
         ctx.fill();
       }
     }
@@ -78,8 +78,8 @@ export default function AnimatedBackground() {
           
           if (distance < 120) {
             ctx.beginPath();
-            // CHANGED TO EMERALD GREEN
-            ctx.strokeStyle = `rgba(52, 211, 153, ${0.15 - distance / 800})`;
+            // CHANGED TO AMBER/GOLD
+            ctx.strokeStyle = `rgba(251, 191, 36, ${0.15 - distance / 800})`;
             ctx.lineWidth = 0.5;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
