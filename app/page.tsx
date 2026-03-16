@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Terminal, Briefcase, Code2, GraduationCap, ChevronRight, Github, Linkedin, Cpu } from "lucide-react";
+import { Download, Terminal, Briefcase, Code2, GraduationCap, ChevronRight, Github, Linkedin, Cpu } from "lucide-react";
 import AnimatedBackground from "../components/AnimatedBackground";
 import { data } from "../data/resume"; 
 
@@ -98,7 +98,17 @@ export default function Portfolio() {
                 <span className="text-transparent bg-clip-text bg-gradient-to-t from-emerald-500 to-teal-200 block -mt-4 md:-mt-8 lg:-mt-12">MORABAGI</span>
               </motion.h1>
 
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="flex gap-4 mt-8 z-10">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="flex gap-4 mt-8 z-10 items-center">
+                {/* PDF DOWNLOAD BUTTON */}
+                <a 
+                  href="/resume.pdf" 
+                  download="Vikas_Morabagi_Resume.pdf"
+                  className="px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold tracking-wide rounded-none border border-emerald-400 shadow-[4px_4px_0_#34d399] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#34d399] transition-all flex items-center gap-2"
+                >
+                  DOWNLOAD RESUME <Download size={18} />
+                </a>
+                
+                {/* SOCIAL LINKS */}
                 <a href={`https://${data.basics.links[0].url}`} target="_blank" rel="noreferrer" className="p-4 rounded-full glass-panel border-slate-700 hover:border-emerald-500 text-slate-300 hover:text-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.2)] transition-all">
                   <Linkedin size={26} />
                 </a>
