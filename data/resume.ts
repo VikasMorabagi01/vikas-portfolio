@@ -51,7 +51,7 @@ export const data = {
   "projects": [
     {
       "title": "Uber Mobility Analysis Dashboard",
-      "image": "/projects/uber.jpg", // ADD THIS LINE (Must match your image filename)
+      "image": "/projects/uber.png", // ADD THIS LINE (Must match your image filename)
       "stack": ["Power BI", "DAX"],
       "bullets": [
         "Built an interactive Power BI dashboard analysing Uber ride bookings, revenue, distance, and ride duration to evaluate mobility efficiency and booking trends.",
@@ -62,7 +62,7 @@ export const data = {
     },
     {
       "title": "Meta Advertising Insights Dashboard",
-      "image": "/projects/meta.jpg", // ADD THIS LINE
+      "image": "/projects/meta.png", // ADD THIS LINE
       "stack": ["Power BI", "SQL", "DAX"],
       "bullets": [
         "Designed and implemented an end-to-end KPI dashboard analyzing 50,000+ ad impressions using Star Schema modeling and advanced DAX measures.",
@@ -82,7 +82,7 @@ export const data = {
     },
     {
       "title": "Netflix Content Analytics",
-      "image": "/projects/netflix.jpg", // ADD THIS LINE
+      "image": "/projects/netflix.png", // ADD THIS LINE
       "stack": ["PostgreSQL"],
       "bullets": [
         "Queried and transformed 8,800+ records solving 15 business intelligence use cases related to content strategy and regional distribution.",
