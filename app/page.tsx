@@ -1,9 +1,44 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Download, Terminal, Briefcase, Code2, GraduationCap, ChevronRight, Github, Linkedin, Cpu } from "lucide-react";
+import { 
+  Download, Terminal, Briefcase, Code2, GraduationCap, 
+  ChevronRight, Github, Linkedin, Cpu, Database, 
+  FileCode2, BarChart3, Table, Workflow, Network, 
+  BrainCircuit, LineChart, Cloud, BookOpen, Code 
+} from "lucide-react";
 import AnimatedBackground from "../components/AnimatedBackground";
 import { data } from "../data/resume"; 
+
+// Helper function to automatically pick an icon based on the skill name
+const getSkillIcon = (skillName: string) => {
+  const lowerSkill = skillName.toLowerCase();
+  
+  if (lowerSkill.includes("sql") || lowerSkill.includes("database") || lowerSkill.includes("postgre") || lowerSkill.includes("mysql")) 
+    return <Database size={14} className="text-amber-400" />;
+  if (lowerSkill.includes("python")) 
+    return <FileCode2 size={14} className="text-blue-400" />;
+  if (lowerSkill.includes("power bi") || lowerSkill.includes("tableau")) 
+    return <BarChart3 size={14} className="text-yellow-500" />;
+  if (lowerSkill.includes("excel")) 
+    return <Table size={14} className="text-emerald-500" />;
+  if (lowerSkill.includes("etl") || lowerSkill.includes("pipeline")) 
+    return <Workflow size={14} className="text-orange-400" />;
+  if (lowerSkill.includes("data model") || lowerSkill.includes("transform") || lowerSkill.includes("wrangling")) 
+    return <Network size={14} className="text-purple-400" />;
+  if (lowerSkill.includes("predictive") || lowerSkill.includes("forecasting") || lowerSkill.includes("ai")) 
+    return <BrainCircuit size={14} className="text-rose-400" />;
+  if (lowerSkill.includes("analysis") || lowerSkill.includes("eda") || lowerSkill.includes("statistic")) 
+    return <LineChart size={14} className="text-emerald-400" />;
+  if (lowerSkill.includes("azure") || lowerSkill.includes("cloud")) 
+    return <Cloud size={14} className="text-cyan-400" />;
+  if (lowerSkill.includes("git")) 
+    return <Github size={14} className="text-slate-300" />;
+  if (lowerSkill.includes("jupyter")) 
+    return <BookOpen size={14} className="text-orange-500" />;
+  
+  return <Code size={14} className="text-slate-400" />; // Default icon
+};
 
 export default function Portfolio() {
   const [loading, setLoading] = useState(true);
@@ -58,7 +93,7 @@ export default function Portfolio() {
             initial={{ y: 100, opacity: 0, x: "-50%" }}
             animate={{ y: 0, opacity: 1, x: "-50%" }}
             transition={{ delay: 0.5, type: "spring", stiffness: 200, damping: 20 }}
-            className="fixed bottom-6 left-1/2 z-50 flex items-center gap-4 px-6 py-4 glass-panel rounded-full border border-amber-500/20 shadow-[0_10px_40px_rgba(245,158,11,0.15)] backdrop-blur-md bg-slate-950/80"
+            className="fixed bottom-6 left-1/2 z-50 flex items-center gap-4 px-6 py-4 bg-slate-900/60 rounded-full border border-amber-500/20 shadow-[0_10px_40px_rgba(245,158,11,0.15)] backdrop-blur-md"
           >
             {[
               { id: 'home', icon: <Terminal size={22} />, label: "Home" },
@@ -98,7 +133,7 @@ export default function Portfolio() {
                 <span className="text-transparent bg-clip-text bg-gradient-to-t from-amber-500 to-yellow-200 block -mt-4 md:-mt-8 lg:-mt-12">MORABAGI</span>
               </motion.h1>
 
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="flex gap-4 mt-8 z-10 items-center">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="flex flex-wrap justify-center gap-4 mt-8 z-10 items-center">
                 <a 
                   href="/resume.pdf" 
                   download="Vikas_Morabagi_Resume.pdf"
@@ -107,10 +142,10 @@ export default function Portfolio() {
                   DOWNLOAD RESUME <Download size={18} />
                 </a>
                 
-                <a href={`https://${data.basics.links[0].url}`} target="_blank" rel="noreferrer" className="p-4 rounded-full glass-panel border-slate-700 hover:border-amber-500 text-slate-300 hover:text-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all">
+                <a href={`https://${data.basics.links[0].url}`} target="_blank" rel="noreferrer" className="p-4 rounded-full bg-slate-900/60 backdrop-blur-md border border-slate-700 hover:border-amber-500 text-slate-300 hover:text-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all">
                   <Linkedin size={26} />
                 </a>
-                <a href={`https://${data.basics.links[1].url}`} target="_blank" rel="noreferrer" className="p-4 rounded-full glass-panel border-slate-700 hover:border-amber-500 text-slate-300 hover:text-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all">
+                <a href={`https://${data.basics.links[1].url}`} target="_blank" rel="noreferrer" className="p-4 rounded-full bg-slate-900/60 backdrop-blur-md border border-slate-700 hover:border-amber-500 text-slate-300 hover:text-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all">
                   <Github size={26} />
                 </a>
               </motion.div>
@@ -126,7 +161,7 @@ export default function Portfolio() {
 
               <motion.div 
                 initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                className="rounded-xl bg-[#0a0f16] border border-slate-800 overflow-hidden shadow-[0_0_50px_rgba(245,158,11,0.05)]"
+                className="rounded-xl bg-[#0a0f16]/90 backdrop-blur-md border border-slate-800 overflow-hidden shadow-[0_0_50px_rgba(245,158,11,0.05)]"
               >
                 <div className="bg-[#111823] border-b border-slate-800 px-4 py-3 flex items-center gap-2">
                   <div className="flex gap-2">
@@ -177,7 +212,7 @@ export default function Portfolio() {
                   >
                     <div className="absolute -left-[43px] md:-left-[59px] top-1 w-5 h-5 rounded-full bg-slate-950 border-4 border-amber-500 group-hover:shadow-[0_0_15px_#f59e0b] transition-all" />
                     
-                    <div className="glass-panel p-8 rounded-2xl border border-slate-800 group-hover:border-amber-500/50 transition-all duration-300 relative overflow-hidden">
+                    <div className="bg-slate-900/60 backdrop-blur-md p-8 rounded-2xl border border-slate-800 group-hover:border-amber-500/50 transition-all duration-300 relative overflow-hidden">
                       <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                       
                       <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-4 relative z-10">
@@ -223,21 +258,18 @@ export default function Portfolio() {
                     key={i}
                     initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
                     whileHover={{ scale: 1.02 }}
-                    className="group glass-panel rounded-2xl border-slate-800 hover:border-yellow-500/50 overflow-hidden flex flex-col h-full relative"
+                    className="group bg-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-800 hover:border-yellow-500/50 overflow-hidden flex flex-col h-full relative"
                   >
                     <div className="h-2 w-full bg-slate-800 group-hover:bg-gradient-to-r group-hover:from-amber-500 group-hover:to-yellow-400 transition-all z-20 relative" />
                     
-                    {/* NEW IMAGE CONTAINER */}
                     {proj.image && (
                       <div className="w-full h-48 md:h-56 overflow-hidden relative border-b border-slate-800">
-                        {/* Fallback gray background while image loads */}
                         <div className="absolute inset-0 bg-slate-900" />
                         <img 
                           src={proj.image} 
                           alt={proj.title}
                           className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 relative z-10"
                         />
-                        {/* Gradient overlay to blend image into the card */}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f16] via-transparent to-transparent z-10" />
                       </div>
                     )}
@@ -282,14 +314,19 @@ export default function Portfolio() {
                   <motion.div 
                     key={i}
                     initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                    className="glass-panel rounded-2xl p-6 border border-slate-800 hover:border-amber-500/30 transition-colors"
+                    className="bg-slate-900/60 backdrop-blur-md rounded-2xl p-6 border border-slate-800 hover:border-amber-500/30 transition-colors"
                   >
                     <h4 className="text-amber-400 font-mono mb-4 text-sm uppercase tracking-widest flex items-center gap-2">
                       <span className="text-slate-600">{'//'}</span> {skillGrp.category}
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {skillGrp.items.map((item, j) => (
-                        <span key={j} className="px-3 py-1.5 bg-slate-900 border border-slate-700 hover:border-amber-500/50 hover:text-amber-300 rounded text-sm text-slate-300 font-medium transition-colors cursor-default">
+                        <span 
+                          key={j} 
+                          className="flex items-center gap-2 px-3 py-1.5 bg-slate-900 border border-slate-700 hover:border-amber-500/50 hover:text-amber-300 rounded text-sm text-slate-300 font-medium transition-colors cursor-default"
+                        >
+                          {/* THIS IS WHERE THE MAGIC HAPPENS! */}
+                          {getSkillIcon(item)}
                           {item}
                         </span>
                       ))}
@@ -314,7 +351,7 @@ export default function Portfolio() {
                   </h3>
                   <div className="space-y-6">
                     {data.education.map((edu, i) => (
-                      <div key={i} className="p-6 glass-panel rounded-xl border border-slate-800 hover:border-yellow-500/30 transition-all">
+                      <div key={i} className="p-6 bg-slate-900/60 backdrop-blur-md rounded-xl border border-slate-800 hover:border-yellow-500/30 transition-all">
                         <h4 className="text-lg font-bold text-white mb-1">{edu.degree}</h4>
                         <p className="text-slate-400 text-sm mb-4">{edu.institution}</p>
                         <div className="flex justify-between items-center text-xs font-mono">
@@ -332,7 +369,7 @@ export default function Portfolio() {
                   </h3>
                   <div className="space-y-3">
                     {data.certifications.map((cert, i) => (
-                      <div key={i} className="p-4 glass-panel rounded-xl border border-slate-800 flex items-center gap-4 hover:border-yellow-500/30 transition-colors">
+                      <div key={i} className="p-4 bg-slate-900/60 backdrop-blur-md rounded-xl border border-slate-800 flex items-center gap-4 hover:border-yellow-500/30 transition-colors">
                         <div className="w-8 h-8 rounded bg-slate-900 border border-slate-700 flex items-center justify-center shrink-0">
                           <GraduationCap size={16} className="text-yellow-400" />
                         </div>
