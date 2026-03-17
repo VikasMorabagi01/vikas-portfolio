@@ -10,41 +10,27 @@ import {
 import AnimatedBackground from "../components/AnimatedBackground";
 import { data } from "../data/resume"; 
 
-// Helper function to automatically pick an icon based on the skill name
 const getSkillIcon = (skillName: string) => {
   const lowerSkill = skillName.toLowerCase();
-  
   if (lowerSkill.includes("sql") || lowerSkill.includes("database") || lowerSkill.includes("postgre") || lowerSkill.includes("mysql")) 
     return <Database size={14} className="text-amber-400" />;
-  if (lowerSkill.includes("python")) 
-    return <FileCode2 size={14} className="text-blue-400" />;
-  if (lowerSkill.includes("power bi") || lowerSkill.includes("tableau")) 
-    return <BarChart3 size={14} className="text-yellow-500" />;
-  if (lowerSkill.includes("excel")) 
-    return <Table size={14} className="text-emerald-500" />;
-  if (lowerSkill.includes("etl") || lowerSkill.includes("pipeline")) 
-    return <Workflow size={14} className="text-orange-400" />;
-  if (lowerSkill.includes("data model") || lowerSkill.includes("transform") || lowerSkill.includes("wrangling")) 
-    return <Network size={14} className="text-purple-400" />;
-  if (lowerSkill.includes("predictive") || lowerSkill.includes("forecasting") || lowerSkill.includes("ai")) 
-    return <BrainCircuit size={14} className="text-rose-400" />;
-  if (lowerSkill.includes("analysis") || lowerSkill.includes("eda") || lowerSkill.includes("statistic")) 
-    return <LineChart size={14} className="text-emerald-400" />;
-  if (lowerSkill.includes("azure") || lowerSkill.includes("cloud")) 
-    return <Cloud size={14} className="text-cyan-400" />;
-  if (lowerSkill.includes("git")) 
-    return <Github size={14} className="text-slate-300" />;
-  if (lowerSkill.includes("jupyter")) 
-    return <BookOpen size={14} className="text-orange-500" />;
-  
-  return <Code size={14} className="text-slate-400" />; // Default icon
+  if (lowerSkill.includes("python")) return <FileCode2 size={14} className="text-blue-400" />;
+  if (lowerSkill.includes("power bi") || lowerSkill.includes("tableau")) return <BarChart3 size={14} className="text-amber-500" />;
+  if (lowerSkill.includes("excel")) return <Table size={14} className="text-emerald-500" />;
+  if (lowerSkill.includes("etl") || lowerSkill.includes("pipeline")) return <Workflow size={14} className="text-orange-400" />;
+  if (lowerSkill.includes("data model") || lowerSkill.includes("transform") || lowerSkill.includes("wrangling")) return <Network size={14} className="text-purple-400" />;
+  if (lowerSkill.includes("predictive") || lowerSkill.includes("forecasting") || lowerSkill.includes("ai")) return <BrainCircuit size={14} className="text-rose-400" />;
+  if (lowerSkill.includes("analysis") || lowerSkill.includes("eda") || lowerSkill.includes("statistic")) return <LineChart size={14} className="text-emerald-400" />;
+  if (lowerSkill.includes("azure") || lowerSkill.includes("cloud")) return <Cloud size={14} className="text-cyan-400" />;
+  if (lowerSkill.includes("git")) return <Github size={14} className="text-zinc-300" />;
+  if (lowerSkill.includes("jupyter")) return <BookOpen size={14} className="text-orange-500" />;
+  return <Code size={14} className="text-zinc-400" />;
 };
 
 export default function Portfolio() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("home");
 
-  // Splash Screen Timer
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1500);
     return () => clearTimeout(timer);
@@ -64,21 +50,21 @@ export default function Portfolio() {
             key="splash"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
-            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950"
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-zinc-950"
           >
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-yellow-300 tracking-tighter mb-8"
+              className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-200 to-yellow-500 tracking-tighter mb-8"
             >
               INITIALIZING...
             </motion.div>
-            <div className="w-64 h-1 bg-white/10 rounded-full overflow-hidden">
+            <div className="w-64 h-[2px] bg-zinc-800 rounded-full overflow-hidden">
               <motion.div
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
                 transition={{ duration: 1.2, ease: "easeInOut" }}
-                className="h-full bg-amber-500 shadow-[0_0_15px_#f59e0b]"
+                className="h-full bg-amber-400 shadow-[0_0_20px_#d4af37]"
               />
             </div>
           </motion.div>
@@ -93,7 +79,7 @@ export default function Portfolio() {
             initial={{ y: 100, opacity: 0, x: "-50%" }}
             animate={{ y: 0, opacity: 1, x: "-50%" }}
             transition={{ delay: 0.5, type: "spring", stiffness: 200, damping: 20 }}
-            className="fixed bottom-6 left-1/2 z-50 flex items-center gap-4 px-6 py-4 bg-slate-900/60 rounded-full border border-amber-500/20 shadow-[0_10px_40px_rgba(245,158,11,0.15)] backdrop-blur-md"
+            className="fixed bottom-6 left-1/2 z-50 flex items-center gap-2 md:gap-4 px-4 md:px-6 py-3 rounded-full border border-zinc-800/80 shadow-[0_20px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl bg-zinc-950/80"
           >
             {[
               { id: 'home', icon: <Terminal size={22} />, label: "Home" },
@@ -105,10 +91,10 @@ export default function Portfolio() {
               <button
                 key={nav.id}
                 onClick={() => scrollTo(nav.id)}
-                className={`relative group p-3 rounded-full transition-all ${activeTab === nav.id ? "bg-amber-500/20 text-amber-400" : "text-slate-400 hover:text-amber-300 hover:bg-white/5"}`}
+                className={`relative group p-3 rounded-full transition-all duration-300 ${activeTab === nav.id ? "bg-amber-500/10 text-amber-400" : "text-zinc-400 hover:text-amber-300 hover:bg-white/5"}`}
               >
                 {nav.icon}
-                <span className="absolute -top-10 left-1/2 -translate-x-1/2 scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all bg-slate-800 text-amber-400 text-xs font-bold px-3 py-1 rounded-md border border-amber-500/30">
+                <span className="absolute -top-12 left-1/2 -translate-x-1/2 scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all bg-zinc-900 text-amber-400 text-xs font-bold px-3 py-1.5 rounded-lg border border-zinc-800 shadow-xl whitespace-nowrap">
                   {nav.label}
                 </span>
               </button>
@@ -119,73 +105,75 @@ export default function Portfolio() {
             
             {/* 1. CINEMATIC HERO */}
             <section id="home" className="min-h-[85vh] flex flex-col justify-center items-center text-center relative pt-10">
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.1)_0%,transparent_50%)] pointer-events-none" />
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.05)_0%,transparent_60%)] pointer-events-none" />
               
-              <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-amber-400 font-mono tracking-[0.3em] uppercase text-sm mb-6 flex items-center gap-2">
-                <span className="w-2 h-2 bg-amber-400 rounded-full animate-pulse" /> {data.basics.title.split(' | ')[0]} _
+              <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-amber-400 font-mono tracking-[0.3em] uppercase text-xs md:text-sm mb-6 flex items-center gap-3">
+                <span className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse shadow-[0_0_10px_#d4af37]" /> {data.basics.title.split(' | ')[0]}
               </motion.span>
 
               <motion.h1 
-                initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, ease: "easeOut" }}
+                initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, ease: "easeOut" }}
                 className="text-6xl md:text-8xl lg:text-[10rem] font-black tracking-tighter leading-none mb-4"
               >
-                <span className="text-transparent bg-clip-text bg-gradient-to-b from-slate-200 to-slate-700 block">VIKAS</span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-t from-amber-500 to-yellow-200 block -mt-4 md:-mt-8 lg:-mt-12">MORABAGI</span>
+                <span className="text-zinc-100 block">VIKAS</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-t from-amber-500 via-amber-200 to-amber-100 block -mt-4 md:-mt-8 lg:-mt-12">MORABAGI</span>
               </motion.h1>
 
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="flex flex-wrap justify-center gap-4 mt-8 z-10 items-center">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="flex flex-wrap justify-center gap-6 mt-10 z-10 items-center">
                 <a 
                   href="/resume.pdf" 
                   download="Vikas_Morabagi_Resume.pdf"
-                  className="px-8 py-4 bg-amber-600 hover:bg-amber-500 text-white font-bold tracking-wide rounded-none border border-amber-400 shadow-[4px_4px_0_#fbbf24] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#fbbf24] transition-all flex items-center gap-2"
+                  className="px-8 py-4 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-zinc-950 font-bold tracking-widest uppercase rounded-full shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_40px_rgba(212,175,55,0.5)] transition-all flex items-center gap-3 scale-100 hover:scale-105"
                 >
                   DOWNLOAD RESUME <Download size={18} />
                 </a>
                 
-                <a href={`https://${data.basics.links[0].url}`} target="_blank" rel="noreferrer" className="p-4 rounded-full bg-slate-900/60 backdrop-blur-md border border-slate-700 hover:border-amber-500 text-slate-300 hover:text-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all">
-                  <Linkedin size={26} />
-                </a>
-                <a href={`https://${data.basics.links[1].url}`} target="_blank" rel="noreferrer" className="p-4 rounded-full bg-slate-900/60 backdrop-blur-md border border-slate-700 hover:border-amber-500 text-slate-300 hover:text-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)] transition-all">
-                  <Github size={26} />
-                </a>
+                <div className="flex gap-4">
+                  <a href={`https://${data.basics.links[0].url}`} target="_blank" rel="noreferrer" className="p-4 rounded-full bg-zinc-900/60 backdrop-blur-md border border-zinc-800 hover:border-amber-500/50 text-zinc-300 hover:text-amber-400 transition-all">
+                    <Linkedin size={22} />
+                  </a>
+                  <a href={`https://${data.basics.links[1].url}`} target="_blank" rel="noreferrer" className="p-4 rounded-full bg-zinc-900/60 backdrop-blur-md border border-zinc-800 hover:border-amber-500/50 text-zinc-300 hover:text-amber-400 transition-all">
+                    <Github size={22} />
+                  </a>
+                </div>
               </motion.div>
             </section>
 
             {/* 2. ABOUT ME */}
             <section className="scroll-mt-24">
-              <div className="mb-12 border-b border-amber-500/20 pb-4">
-                <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight uppercase flex items-center gap-4">
+              <div className="mb-12 border-b border-zinc-800 pb-4">
+                <h2 className="text-4xl md:text-5xl font-black text-zinc-100 tracking-tight uppercase flex items-center gap-4">
                   <Terminal className="text-amber-500 h-10 w-10" /> About Me
                 </h2>
               </div>
 
               <motion.div 
                 initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                className="rounded-xl bg-[#0a0f16]/90 backdrop-blur-md border border-slate-800 overflow-hidden shadow-[0_0_50px_rgba(245,158,11,0.05)]"
+                className="rounded-2xl bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/80 overflow-hidden shadow-2xl"
               >
-                <div className="bg-[#111823] border-b border-slate-800 px-4 py-3 flex items-center gap-2">
+                <div className="bg-zinc-950/80 border-b border-zinc-800/80 px-4 py-3 flex items-center gap-2">
                   <div className="flex gap-2">
-                    <div className="w-3 h-3 rounded-full bg-rose-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-orange-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-amber-500/80" />
+                    <div className="w-3 h-3 rounded-full bg-zinc-700" />
+                    <div className="w-3 h-3 rounded-full bg-zinc-700" />
+                    <div className="w-3 h-3 rounded-full bg-amber-500/80 shadow-[0_0_8px_#d4af37]" />
                   </div>
-                  <span className="ml-4 text-xs text-slate-500 font-mono flex-1 text-center pr-12">Profile Overview</span>
+                  <span className="ml-4 text-xs text-zinc-500 font-mono flex-1 text-center pr-12">Profile Overview</span>
                 </div>
                 
-                <div className="p-6 md:p-8 text-sm md:text-base leading-relaxed">
+                <div className="p-6 md:p-10 text-sm md:text-base leading-relaxed">
                   <h3 className="text-amber-400 font-bold uppercase tracking-widest mb-4 flex items-center gap-2 text-xs">
-                    <span className="w-2 h-2 bg-amber-500 animate-pulse" /> Professional Summary
+                    <span className="w-1.5 h-1.5 bg-amber-500 rounded-full" /> Professional Summary
                   </h3>
-                  <p className="text-slate-300 mb-12 font-mono leading-loose">{data.basics.summary}</p>
+                  <p className="text-zinc-300 mb-14 font-sans leading-loose text-lg font-light">{data.basics.summary}</p>
                   
-                  <h3 className="text-yellow-400 font-bold uppercase tracking-widest mb-4 flex items-center gap-2 text-xs">
-                    <span className="w-2 h-2 bg-yellow-500 animate-pulse" /> Key Achievements
+                  <h3 className="text-amber-400 font-bold uppercase tracking-widest mb-6 flex items-center gap-2 text-xs">
+                    <span className="w-1.5 h-1.5 bg-amber-500 rounded-full" /> Key Impact
                   </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                     {data.achievements.slice(0, 4).map((ach, i) => (
-                      <div key={i} className="border border-slate-800 bg-slate-900/50 p-4 rounded text-center hover:border-amber-500/30 transition-colors flex flex-col justify-center h-full">
-                        <div className="text-2xl font-black text-amber-400 mb-2">{ach.metric}</div>
-                        <div className="text-[10px] text-slate-400 uppercase tracking-widest line-clamp-3 leading-snug" title={ach.context}>
+                      <div key={i} className="border border-zinc-800/50 bg-zinc-950/30 p-6 rounded-xl text-center hover:border-amber-500/30 hover:bg-zinc-900 transition-all duration-300 flex flex-col justify-center h-full group">
+                        <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-br from-amber-300 to-amber-600 mb-3 group-hover:scale-110 transition-transform">{ach.metric}</div>
+                        <div className="text-[11px] text-zinc-400 uppercase tracking-wider line-clamp-3 leading-snug font-medium" title={ach.context}>
                           {ach.context}
                         </div>
                       </div>
@@ -197,42 +185,42 @@ export default function Portfolio() {
 
             {/* 3. INTERNSHIP */}
             <section id="experience" className="scroll-mt-24">
-              <div className="mb-12 border-b border-amber-500/20 pb-4">
-                <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight uppercase flex items-center gap-4">
+              <div className="mb-12 border-b border-zinc-800 pb-4">
+                <h2 className="text-4xl md:text-5xl font-black text-zinc-100 tracking-tight uppercase flex items-center gap-4">
                   <Briefcase className="text-amber-500 h-10 w-10" /> Internship
                 </h2>
               </div>
 
-              <div className="relative border-l-2 border-slate-800 ml-4 md:ml-0 space-y-12 pl-8 md:pl-12">
+              <div className="relative border-l border-zinc-800 ml-4 md:ml-0 space-y-12 pl-8 md:pl-12">
                 {data.experience.map((exp, i) => (
                   <motion.div 
                     key={i}
                     initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
                     className="relative group"
                   >
-                    <div className="absolute -left-[43px] md:-left-[59px] top-1 w-5 h-5 rounded-full bg-slate-950 border-4 border-amber-500 group-hover:shadow-[0_0_15px_#f59e0b] transition-all" />
+                    <div className="absolute -left-[37px] md:-left-[53px] top-1 w-3 h-3 rounded-full bg-zinc-950 border-2 border-amber-500 group-hover:shadow-[0_0_15px_#d4af37] transition-all" />
                     
-                    <div className="bg-slate-900/60 backdrop-blur-md p-8 rounded-2xl border border-slate-800 group-hover:border-amber-500/50 transition-all duration-300 relative overflow-hidden">
+                    <div className="bg-zinc-900/30 backdrop-blur-md p-8 rounded-2xl border border-zinc-800 hover:border-amber-500/30 transition-all duration-500 relative overflow-hidden">
                       <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                       
-                      <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-4 relative z-10">
+                      <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4 relative z-10">
                         <div>
-                          <h3 className="text-2xl font-bold text-white tracking-tight">{exp.role}</h3>
-                          <p className="text-amber-400 font-mono text-sm mt-1">{exp.company}</p>
+                          <h3 className="text-2xl font-bold text-zinc-100 tracking-tight">{exp.role}</h3>
+                          <p className="text-amber-400/80 font-medium text-sm mt-1">{exp.company}</p>
                         </div>
-                        <span className="font-mono text-xs text-slate-500 bg-slate-900 px-3 py-1 rounded border border-slate-800">
+                        <span className="font-mono text-xs text-zinc-400 bg-zinc-950/80 px-4 py-2 rounded-full border border-zinc-800">
                           {exp.dates}
                         </span>
                       </div>
                       
-                      <ul className="space-y-3 relative z-10">
+                      <ul className="space-y-4 relative z-10">
                         {exp.bullets.map((bullet, j) => (
-                          <li key={j} className="text-slate-400 text-sm leading-relaxed flex gap-3">
+                          <li key={j} className="text-zinc-300 text-sm leading-relaxed flex gap-4">
                             <ChevronRight size={16} className="text-amber-500 shrink-0 mt-0.5" />
-                            <span>
+                            <span className="font-light">
                               {bullet.split(/(\d+(?:\.\d+)?%|\d+(?:,\d+)?\+?)/g).map((part, k) => 
                                 /(\d+(?:\.\d+)?%|\d+(?:,\d+)?\+?)/.test(part) ? 
-                                <span key={k} className="text-amber-300 font-bold bg-amber-500/10 px-1 rounded">{part}</span> : part
+                                <span key={k} className="text-amber-300 font-medium bg-amber-500/10 px-1.5 py-0.5 rounded ml-1">{part}</span> : part
                               )}
                             </span>
                           </li>
@@ -246,9 +234,9 @@ export default function Portfolio() {
 
             {/* 4. PROJECTS */}
             <section id="projects" className="scroll-mt-24">
-              <div className="mb-12 border-b border-yellow-500/20 pb-4">
-                <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight uppercase flex items-center gap-4">
-                  <Code2 className="text-yellow-500 h-10 w-10" /> Projects
+              <div className="mb-12 border-b border-zinc-800 pb-4">
+                <h2 className="text-4xl md:text-5xl font-black text-zinc-100 tracking-tight uppercase flex items-center gap-4">
+                  <Code2 className="text-amber-500 h-10 w-10" /> Projects
                 </h2>
               </div>
 
@@ -257,40 +245,38 @@ export default function Portfolio() {
                   <motion.div 
                     key={i}
                     initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
-                    whileHover={{ scale: 1.02 }}
-                    className="group bg-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-800 hover:border-yellow-500/50 overflow-hidden flex flex-col h-full relative"
+                    whileHover={{ y: -5 }}
+                    className="group bg-zinc-900/30 backdrop-blur-xl rounded-2xl border border-zinc-800 hover:border-amber-500/40 overflow-hidden flex flex-col h-full relative shadow-lg transition-all duration-500"
                   >
-                    <div className="h-2 w-full bg-slate-800 group-hover:bg-gradient-to-r group-hover:from-amber-500 group-hover:to-yellow-400 transition-all z-20 relative" />
-                    
                     {proj.image && (
-                      <div className="w-full h-48 md:h-56 overflow-hidden relative border-b border-slate-800">
-                        <div className="absolute inset-0 bg-slate-900" />
+                      <div className="w-full h-48 md:h-56 overflow-hidden relative border-b border-zinc-800">
+                        <div className="absolute inset-0 bg-zinc-950" />
                         <img 
                           src={proj.image} 
                           alt={proj.title}
-                          className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 relative z-10"
+                          className="w-full h-full object-cover object-top opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 relative z-10"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f16] via-transparent to-transparent z-10" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-900/20 to-transparent z-10" />
                       </div>
                     )}
 
-                    <div className="p-8 flex flex-col flex-grow relative z-20">
+                    <div className="p-8 flex flex-col flex-grow relative z-20 bg-zinc-950/50">
                       <div className="flex justify-between items-start mb-6">
-                        <h3 className="text-xl font-bold text-white group-hover:text-yellow-300 transition-colors w-full">
+                        <h3 className="text-xl font-bold text-zinc-100 group-hover:text-amber-400 transition-colors w-full">
                           {proj.title}
                         </h3>
                       </div>
                       <div className="flex flex-wrap gap-2 mb-6">
                         {proj.stack.map(tech => (
-                          <span key={tech} className="text-[10px] uppercase font-mono tracking-widest px-2 py-1 bg-slate-900 border border-slate-700 text-yellow-400 rounded">
+                          <span key={tech} className="text-[10px] uppercase font-mono tracking-widest px-2.5 py-1 bg-zinc-900 border border-zinc-700 text-amber-300 rounded-full">
                             {tech}
                           </span>
                         ))}
                       </div>
                       <ul className="space-y-3 mt-auto">
                         {proj.bullets.map((bullet, j) => (
-                          <li key={j} className="text-sm text-slate-400 flex gap-2">
-                            <span className="text-yellow-500/50 block mt-1">•</span>
+                          <li key={j} className="text-sm text-zinc-400 flex gap-3 font-light">
+                            <span className="text-amber-500 block mt-1 shrink-0">•</span>
                             <span className="leading-relaxed">{bullet}</span>
                           </li>
                         ))}
@@ -303,8 +289,8 @@ export default function Portfolio() {
 
             {/* 5. SKILLS */}
             <section id="skills" className="scroll-mt-24">
-              <div className="mb-12 border-b border-amber-500/20 pb-4">
-                <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight uppercase flex items-center gap-4">
+              <div className="mb-12 border-b border-zinc-800 pb-4">
+                <h2 className="text-4xl md:text-5xl font-black text-zinc-100 tracking-tight uppercase flex items-center gap-4">
                   <Cpu className="text-amber-500 h-10 w-10" /> Skills
                 </h2>
               </div>
@@ -314,18 +300,17 @@ export default function Portfolio() {
                   <motion.div 
                     key={i}
                     initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                    className="bg-slate-900/60 backdrop-blur-md rounded-2xl p-6 border border-slate-800 hover:border-amber-500/30 transition-colors"
+                    className="bg-zinc-900/30 backdrop-blur-xl rounded-2xl p-8 border border-zinc-800 hover:border-amber-500/30 transition-colors"
                   >
-                    <h4 className="text-amber-400 font-mono mb-4 text-sm uppercase tracking-widest flex items-center gap-2">
-                      <span className="text-slate-600">{'//'}</span> {skillGrp.category}
+                    <h4 className="text-amber-400 font-mono mb-6 text-sm uppercase tracking-widest flex items-center gap-3">
+                      <span className="w-4 h-[1px] bg-amber-500/50" /> {skillGrp.category}
                     </h4>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-3">
                       {skillGrp.items.map((item, j) => (
                         <span 
                           key={j} 
-                          className="flex items-center gap-2 px-3 py-1.5 bg-slate-900 border border-slate-700 hover:border-amber-500/50 hover:text-amber-300 rounded text-sm text-slate-300 font-medium transition-colors cursor-default"
+                          className="flex items-center gap-2 px-4 py-2 bg-zinc-950/80 border border-zinc-800 hover:border-amber-500/50 hover:bg-amber-500/5 rounded-full text-sm text-zinc-300 font-medium transition-colors cursor-default"
                         >
-                          {/* THIS IS WHERE THE MAGIC HAPPENS! */}
                           {getSkillIcon(item)}
                           {item}
                         </span>
@@ -337,26 +322,26 @@ export default function Portfolio() {
             </section>
 
             {/* 6. EDUCATION & CERTS */}
-            <section id="education" className="scroll-mt-24">
-              <div className="mb-12 border-b border-yellow-500/20 pb-4">
-                <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight uppercase flex items-center gap-4">
-                  <GraduationCap className="text-yellow-500 h-10 w-10" /> Education & Certs
+            <section id="education" className="scroll-mt-24 pb-20">
+              <div className="mb-12 border-b border-zinc-800 pb-4">
+                <h2 className="text-4xl md:text-5xl font-black text-zinc-100 tracking-tight uppercase flex items-center gap-4">
+                  <GraduationCap className="text-amber-500 h-10 w-10" /> Education & Certs
                 </h2>
               </div>
 
               <div className="grid md:grid-cols-2 gap-12">
                 <div>
-                   <h3 className="text-xl font-bold text-slate-300 mb-6 tracking-tight uppercase">
+                   <h3 className="text-xl font-bold text-zinc-300 mb-8 tracking-widest uppercase text-sm">
                     Education
                   </h3>
                   <div className="space-y-6">
                     {data.education.map((edu, i) => (
-                      <div key={i} className="p-6 bg-slate-900/60 backdrop-blur-md rounded-xl border border-slate-800 hover:border-yellow-500/30 transition-all">
-                        <h4 className="text-lg font-bold text-white mb-1">{edu.degree}</h4>
-                        <p className="text-slate-400 text-sm mb-4">{edu.institution}</p>
+                      <div key={i} className="p-8 bg-zinc-900/30 backdrop-blur-xl rounded-2xl border border-zinc-800 hover:border-amber-500/30 transition-all">
+                        <h4 className="text-lg font-bold text-zinc-100 mb-2">{edu.degree}</h4>
+                        <p className="text-zinc-400 text-sm mb-6 font-light">{edu.institution}</p>
                         <div className="flex justify-between items-center text-xs font-mono">
-                          <span className="text-yellow-500">{edu.dates}</span>
-                          <span className="bg-yellow-500/10 text-yellow-300 px-2 py-1 rounded">{edu.details}</span>
+                          <span className="text-amber-500/80">{edu.dates}</span>
+                          <span className="bg-amber-500/10 text-amber-300 px-3 py-1 rounded-full border border-amber-500/20">{edu.details}</span>
                         </div>
                       </div>
                     ))}
@@ -364,16 +349,16 @@ export default function Portfolio() {
                 </div>
 
                 <div>
-                   <h3 className="text-xl font-bold text-slate-300 mb-6 tracking-tight uppercase">
+                   <h3 className="text-xl font-bold text-zinc-300 mb-8 tracking-widest uppercase text-sm">
                     Certifications
                   </h3>
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     {data.certifications.map((cert, i) => (
-                      <div key={i} className="p-4 bg-slate-900/60 backdrop-blur-md rounded-xl border border-slate-800 flex items-center gap-4 hover:border-yellow-500/30 transition-colors">
-                        <div className="w-8 h-8 rounded bg-slate-900 border border-slate-700 flex items-center justify-center shrink-0">
-                          <GraduationCap size={16} className="text-yellow-400" />
+                      <div key={i} className="p-5 bg-zinc-900/30 backdrop-blur-xl rounded-2xl border border-zinc-800 flex items-center gap-5 hover:border-amber-500/30 transition-colors">
+                        <div className="w-10 h-10 rounded-full bg-zinc-950 border border-zinc-800 flex items-center justify-center shrink-0">
+                          <GraduationCap size={18} className="text-amber-400" />
                         </div>
-                        <span className="text-sm text-slate-300 font-medium leading-snug">{cert}</span>
+                        <span className="text-sm text-zinc-300 font-light leading-snug">{cert}</span>
                       </div>
                     ))}
                   </div>

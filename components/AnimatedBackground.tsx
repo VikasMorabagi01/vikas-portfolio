@@ -30,8 +30,8 @@ export default function AnimatedBackground() {
       constructor() {
         this.x = Math.random() * w;
         this.y = Math.random() * h;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
+        this.vx = (Math.random() - 0.5) * 0.3; // Slower, more elegant movement
+        this.vy = (Math.random() - 0.5) * 0.3;
         this.radius = Math.random() * 1.5 + 0.5;
       }
 
@@ -46,8 +46,8 @@ export default function AnimatedBackground() {
         if (!ctx) return;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        // CHANGED TO AMBER/GOLD
-        ctx.fillStyle = "rgba(251, 191, 36, 0.5)";
+        // Premium Champagne Gold
+        ctx.fillStyle = "rgba(212, 175, 55, 0.4)";
         ctx.fill();
       }
     }
@@ -62,9 +62,10 @@ export default function AnimatedBackground() {
     const animate = () => {
       ctx.clearRect(0, 0, w, h);
       
+      // Sleek Obsidian Background Gradient
       const gradient = ctx.createLinearGradient(0, 0, w, h);
-      gradient.addColorStop(0, "rgba(10, 15, 20, 1)");
-      gradient.addColorStop(1, "rgba(5, 8, 10, 1)");
+      gradient.addColorStop(0, "rgba(9, 9, 11, 1)"); // Zinc-950
+      gradient.addColorStop(1, "rgba(0, 0, 0, 1)");  // Pure Black
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, w, h);
 
@@ -78,8 +79,8 @@ export default function AnimatedBackground() {
           
           if (distance < 120) {
             ctx.beginPath();
-            // CHANGED TO AMBER/GOLD
-            ctx.strokeStyle = `rgba(251, 191, 36, ${0.15 - distance / 800})`;
+            // Premium Champagne Gold connecting lines
+            ctx.strokeStyle = `rgba(212, 175, 55, ${0.12 - distance / 1000})`;
             ctx.lineWidth = 0.5;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -109,7 +110,7 @@ export default function AnimatedBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-[-1] bg-slate-950"
+      className="fixed inset-0 pointer-events-none z-[-1]"
     />
   );
 }
