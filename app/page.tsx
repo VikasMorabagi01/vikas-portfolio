@@ -5,7 +5,7 @@ import {
   Download, Terminal, Briefcase, Code2, GraduationCap, 
   ChevronRight, Github, Linkedin, Cpu, Database, 
   BarChart3, Table, Workflow, Network, 
-  BrainCircuit, LineChart, Code, ChevronDown 
+  BrainCircuit, LineChart, Code, ChevronDown, Mail
 } from "lucide-react";
 import AnimatedBackground from "../components/AnimatedBackground";
 import { data } from "../data/resume"; 
@@ -39,8 +39,6 @@ const getSkillBrandIcon = (title: string) => {
 export default function Portfolio() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("home");
-  
-  // New state to track which projects are expanded
   const [expandedProjects, setExpandedProjects] = useState<{ [key: number]: boolean }>({});
 
   useEffect(() => {
@@ -138,7 +136,10 @@ export default function Portfolio() {
                 <span className="text-transparent bg-clip-text bg-gradient-to-t from-amber-500 via-amber-200 to-amber-100 block -mt-4 md:-mt-8 lg:-mt-12">MORABAGI</span>
               </motion.h1>
 
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="flex flex-wrap justify-center gap-6 mt-10 z-10 items-center">
+              {/* UPDATED HERO CTA SECTION */}
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="flex flex-col items-center justify-center gap-8 mt-10 z-10 w-full">
+                
+                {/* Download Button */}
                 <a 
                   href="/resume.pdf" 
                   download="Vikas_Morabagi_Resume.pdf"
@@ -147,14 +148,25 @@ export default function Portfolio() {
                   DOWNLOAD RESUME <Download size={18} />
                 </a>
                 
-                <div className="flex gap-4">
-                  <a href={`https://${data.basics.links[0].url}`} target="_blank" rel="noreferrer" className="p-4 rounded-full bg-zinc-900/60 backdrop-blur-md border border-zinc-800 hover:border-amber-500/50 text-zinc-300 hover:text-amber-400 transition-all">
-                    <Linkedin size={22} />
-                  </a>
-                  <a href={`https://${data.basics.links[1].url}`} target="_blank" rel="noreferrer" className="p-4 rounded-full bg-zinc-900/60 backdrop-blur-md border border-zinc-800 hover:border-amber-500/50 text-zinc-300 hover:text-amber-400 transition-all">
-                    <Github size={22} />
-                  </a>
+                {/* Clean Social Links with fading lines */}
+                <div className="flex items-center justify-center w-full max-w-[320px] gap-6 mt-2">
+                  <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent to-amber-500/40"></div>
+                  
+                  <div className="flex items-center gap-5">
+                    <a href={`mailto:${data.basics.email}`} className="text-zinc-300 hover:text-amber-400 hover:scale-110 transition-all drop-shadow-md">
+                      <Mail size={24} />
+                    </a>
+                    <a href={`https://${data.basics.links[1].url}`} target="_blank" rel="noreferrer" className="text-zinc-300 hover:text-amber-400 hover:scale-110 transition-all drop-shadow-md">
+                      <Github size={24} />
+                    </a>
+                    <a href={`https://${data.basics.links[0].url}`} target="_blank" rel="noreferrer" className="text-zinc-300 hover:text-amber-400 hover:scale-110 transition-all drop-shadow-md">
+                      <Linkedin size={24} />
+                    </a>
+                  </div>
+
+                  <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent to-amber-500/40"></div>
                 </div>
+
               </motion.div>
             </section>
 
