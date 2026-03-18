@@ -5,30 +5,26 @@ import {
   Download, Terminal, Briefcase, Code2, GraduationCap, 
   ChevronRight, Github, Linkedin, Cpu, Database, 
   BarChart3, Table, Workflow, Network, 
-  BrainCircuit, LineChart, Code 
+  BrainCircuit, LineChart, Code, ChevronDown 
 } from "lucide-react";
 import AnimatedBackground from "../components/AnimatedBackground";
 import { data } from "../data/resume"; 
 
-// 1. CLEVER PARSER: Splits "SQL (CTEs, Joins)" into Title: "SQL" and Subtitle: "CTEs, Joins"
 const parseSkill = (rawString: string, categoryName: string) => {
   const match = rawString.match(/^(.*?)(?:\s*\((.*?)\))?$/);
   const title = match?.[1]?.trim() || rawString;
-  const subtitle = match?.[2]?.trim() || categoryName; // Fallback to category if no parentheses
+  const subtitle = match?.[2]?.trim() || categoryName;
   return { title, subtitle };
 };
 
-// 2. ICON MATCHER: Pulls colorful brand logos for tech, and premium icons for concepts
 const getSkillBrandIcon = (title: string) => {
   const t = title.toLowerCase();
-  
   if(t.includes('python')) return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" className="w-6 h-6" alt="Python" />;
   if(t.includes('postgresql')) return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" className="w-6 h-6" alt="PostgreSQL" />;
   if(t.includes('mysql') || t === 'sql') return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" className="w-6 h-6" alt="MySQL" />;
   if(t.includes('azure')) return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" className="w-6 h-6" alt="Azure" />;
   if(t.includes('git') && !t.includes('github')) return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" className="w-6 h-6" alt="Git" />;
   if(t.includes('jupyter')) return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg" className="w-6 h-6" alt="Jupyter" />;
-  
   if(t.includes('github')) return <Github className="w-6 h-6 text-zinc-100" />;
   if(t.includes('power bi') || t.includes('tableau')) return <BarChart3 className="w-6 h-6 text-yellow-500" />;
   if(t.includes('excel')) return <Table className="w-6 h-6 text-emerald-500" />;
@@ -37,13 +33,15 @@ const getSkillBrandIcon = (title: string) => {
   if(t.includes('predictive') || t.includes('ai')) return <BrainCircuit className="w-6 h-6 text-rose-400" />;
   if(t.includes('analysis') || t.includes('eda')) return <LineChart className="w-6 h-6 text-emerald-400" />;
   if(t.includes('database')) return <Database className="w-6 h-6 text-blue-400" />;
-
   return <Code className="w-6 h-6 text-zinc-400" />;
 };
 
 export default function Portfolio() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("home");
+  
+  // New state to track which projects are expanded
+  const [expandedProjects, setExpandedProjects] = useState<{ [key: number]: boolean }>({});
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1500);
@@ -53,6 +51,13 @@ export default function Portfolio() {
   const scrollTo = (id: string) => {
     setActiveTab(id);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const toggleProject = (index: number) => {
+    setExpandedProjects(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
   };
 
   return (
@@ -178,7 +183,6 @@ export default function Portfolio() {
                   <h3 className="text-amber-400 font-bold uppercase tracking-widest mb-4 flex items-center gap-2 text-xs">
                     <span className="w-1.5 h-1.5 bg-amber-500 rounded-full" /> Professional Summary
                   </h3>
-                  {/* Removed the Key Impact section from here */}
                   <p className="text-zinc-300 font-sans leading-loose text-lg font-light">{data.basics.summary}</p>
                 </div>
               </motion.div>
@@ -243,18 +247,18 @@ export default function Portfolio() {
 
               <div className="grid md:grid-cols-2 gap-8">
                 {data.projects.map((proj, i) => {
-                  // If project doesn't have a specific link, default to main GitHub profile
                   const projectLink = (proj as any).link || `https://${data.basics.links[1].url}`;
+                  const isExpanded = expandedProjects[i] || false;
 
                   return (
                     <motion.div 
                       key={i}
                       initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
                       whileHover={{ y: -5 }}
-                      className="group bg-zinc-900/30 backdrop-blur-xl rounded-2xl border border-zinc-800 hover:border-amber-500/40 overflow-hidden flex flex-col h-full relative shadow-lg transition-all duration-500"
+                      className="group bg-zinc-900/30 backdrop-blur-xl rounded-2xl border border-zinc-800 hover:border-amber-500/40 overflow-hidden flex flex-col h-fit relative shadow-lg transition-all duration-500"
                     >
                       {proj.image && (
-                        <div className="w-full h-48 md:h-56 overflow-hidden relative border-b border-zinc-800">
+                        <div className="w-full h-48 md:h-56 overflow-hidden relative border-b border-zinc-800 shrink-0">
                           <div className="absolute inset-0 bg-zinc-950" />
                           <img 
                             src={proj.image} 
@@ -266,7 +270,7 @@ export default function Portfolio() {
                       )}
 
                       <div className="p-8 flex flex-col flex-grow relative z-20 bg-zinc-950/50">
-                        {/* PROJECT HEADER WITH GITHUB ICON */}
+                        {/* PROJECT HEADER */}
                         <div className="flex justify-between items-start mb-6 gap-4">
                           <h3 className="text-xl font-bold text-zinc-100 group-hover:text-amber-400 transition-colors">
                             {proj.title}
@@ -276,12 +280,13 @@ export default function Portfolio() {
                             target="_blank"
                             rel="noreferrer"
                             title="View Repository"
-                            className="p-2.5 rounded-full bg-zinc-900 border border-zinc-700 hover:border-amber-500/50 hover:bg-amber-500/10 hover:text-amber-400 text-zinc-400 transition-all shrink-0 flex items-center justify-center shadow-sm"
+                            className="p-2.5 rounded-full bg-zinc-900 border border-zinc-700 hover:border-amber-500/50 hover:bg-amber-500/10 hover:text-amber-400 text-zinc-400 transition-all shrink-0 flex items-center justify-center shadow-sm z-30"
                           >
                             <Github size={18} />
                           </a>
                         </div>
                         
+                        {/* TECH STACK */}
                         <div className="flex flex-wrap gap-2 mb-6">
                           {proj.stack.map(tech => (
                             <span key={tech} className="text-[10px] uppercase font-mono tracking-widest px-2.5 py-1 bg-zinc-900 border border-zinc-700 text-amber-300 rounded-full">
@@ -289,15 +294,40 @@ export default function Portfolio() {
                             </span>
                           ))}
                         </div>
+
+                        {/* TOGGLE EXPAND BUTTON */}
+                        <button 
+                          onClick={() => toggleProject(i)}
+                          className="flex items-center gap-2 text-xs uppercase tracking-widest text-zinc-400 hover:text-amber-400 transition-colors mt-auto font-bold w-fit"
+                        >
+                          {isExpanded ? "Hide Details" : "View Details"}
+                          <motion.div animate={{ rotate: isExpanded ? 180 : 0 }}>
+                            <ChevronDown size={16} />
+                          </motion.div>
+                        </button>
                         
-                        <ul className="space-y-3 mt-auto">
-                          {proj.bullets.map((bullet, j) => (
-                            <li key={j} className="text-sm text-zinc-400 flex gap-3 font-light">
-                              <span className="text-amber-500 block mt-1 shrink-0">•</span>
-                              <span className="leading-relaxed">{bullet}</span>
-                            </li>
-                          ))}
-                        </ul>
+                        {/* COLLAPSIBLE DETAILS */}
+                        <AnimatePresence>
+                          {isExpanded && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3, ease: "easeInOut" }}
+                              className="overflow-hidden"
+                            >
+                              <ul className="space-y-3 mt-6 pt-6 border-t border-zinc-800/50">
+                                {proj.bullets.map((bullet, j) => (
+                                  <li key={j} className="text-sm text-zinc-400 flex gap-3 font-light">
+                                    <span className="text-amber-500 block mt-1 shrink-0">•</span>
+                                    <span className="leading-relaxed">{bullet}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                        
                       </div>
                     </motion.div>
                   )
@@ -305,7 +335,7 @@ export default function Portfolio() {
               </div>
             </section>
 
-            {/* 5. SKILLS - PREMIUM GRID LAYOUT */}
+            {/* 5. SKILLS */}
             <section id="skills" className="scroll-mt-24">
               <div className="mb-12 border-b border-zinc-800 pb-4">
                 <h2 className="text-4xl md:text-5xl font-black text-zinc-100 tracking-tight flex flex-col gap-2">
