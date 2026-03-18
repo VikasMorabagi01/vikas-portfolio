@@ -54,37 +54,45 @@ export const data = {
     {
       "title": "Uber Mobility Analysis Dashboard",
       "image": "/projects/uber.png",
-      "link": "https://github.com/VikasMorabagi01/Uber-Mobility-Analysis", // <--- ADD THIS LINE
-      "stack": ["Power BI", "DAX"],
+      "link": "https://github.com/VikasMorabagi01/Uber-Mobility-Analysis", // Update this with actual repo link if you have it
+      "stack": ["Power BI", "SQL", "DAX"],
       "bullets": [
-        "Built an interactive Power BI dashboard analysing Uber ride bookings..."
+        "Examined ride booking records using SQL to uncover trends in demand, revenue generation, trip distance, and ride duration.",
+        "Designed interactive Power BI dashboards with dynamic KPI selection and advanced DAX measures for performance tracking.",
+        "Discovered peak demand periods, high-traffic pickup locations, and preferred vehicle categories to support pricing and driver allocation strategies."
       ]
     },
     {
       "title": "Meta Advertising Insights Dashboard",
       "image": "/projects/meta.png",
-      "link": "https://github.com/VikasMorabagi01/Meta-Advertising-Insights-Dashboard", // <--- ADD THIS LINE
+      "link": "https://github.com/VikasMorabagi01/Meta-Advertising-Insights-Dashboard", // Update this with actual repo link if you have it
       "stack": ["Power BI", "SQL", "DAX"],
       "bullets": [
-        "Designed and implemented an end-to-end KPI dashboard..."
+        "Designed and implemented an end-to-end KPI dashboard analyzing 50,000+ ad impressions using Star Schema modeling and advanced DAX measures.",
+        "Identified conversion bottleneck (13.56% engagement vs 0.61% purchases) through cohort analysis and audience segmentation.",
+        "Recommended data-driven budget reallocation across India and the US, improving funnel efficiency by 18% and enhancing campaign ROI."
       ]
     },
     {
       "title": "Telecom Customer Churn Analysis",
       "image": "/projects/churn.jpg",
-      "link": "https://github.com/VikasMorabagi01/Telecom-Customer-Churn-Analysis", // <--- ADD THIS LINE
-      "stack": ["Python", "Statistical Modeling"],
+      "link": "https://github.com/VikasMorabagi01/Telecom-Customer-Churn-Analysis", // Update this with actual repo link if you have it
+      "stack": ["Python", "Pandas", "NumPy"],
       "bullets": [
-        "Processed and analyzed 7,043 customer records..."
+        "Investigated 7,043 telecom customer records using Python libraries including Pandas and NumPy to identify churn behavior patterns.",
+        "Performed exploratory data analysis, correlation studies, and statistical evaluation to determine major churn drivers.",
+        "Measured a churn rate of 26.5% concentrated among month-to-month contract users and recommended targeted retention strategies."
       ]
     },
     {
       "title": "Netflix Content Analytics",
       "image": "/projects/netflix.png",
-      "link": "https://github.com/VikasMorabagi01/Netflix-Content-Strategy-Analysis", // <--- ADD THIS LINE
-      "stack": ["PostgreSQL"],
+      "link": "https://github.com/VikasMorabagi01/Netflix-Content-Strategy-Analysis", // Update this with actual repo link if you have it
+      "stack": ["PostgreSQL", "SQL"],
       "bullets": [
-        "Queried and transformed 8,800+ records solving 15 business intelligence use cases..."
+        "Queried and transformed 8,800+ records solving 15 business intelligence use cases related to content strategy and regional distribution.",
+        "Applied advanced SQL techniques (CTEs, Window Functions, Aggregations, Indexing) improving query performance by 22%.",
+        "Generated actionable insights on genre trends, creator impact, and regional demand to support data-driven content expansion decisions."
       ]
     }
   ],
