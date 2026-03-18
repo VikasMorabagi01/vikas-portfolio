@@ -22,7 +22,6 @@ const parseSkill = (rawString: string, categoryName: string) => {
 const getSkillBrandIcon = (title: string) => {
   const t = title.toLowerCase();
   
-  // Official Colored Devicons
   if(t.includes('python')) return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" className="w-6 h-6" alt="Python" />;
   if(t.includes('postgresql')) return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" className="w-6 h-6" alt="PostgreSQL" />;
   if(t.includes('mysql') || t === 'sql') return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" className="w-6 h-6" alt="MySQL" />;
@@ -30,7 +29,6 @@ const getSkillBrandIcon = (title: string) => {
   if(t.includes('git') && !t.includes('github')) return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" className="w-6 h-6" alt="Git" />;
   if(t.includes('jupyter')) return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg" className="w-6 h-6" alt="Jupyter" />;
   
-  // Custom styled Lucide icons for things that don't have standard devicons
   if(t.includes('github')) return <Github className="w-6 h-6 text-zinc-100" />;
   if(t.includes('power bi') || t.includes('tableau')) return <BarChart3 className="w-6 h-6 text-yellow-500" />;
   if(t.includes('excel')) return <Table className="w-6 h-6 text-emerald-500" />;
@@ -40,7 +38,6 @@ const getSkillBrandIcon = (title: string) => {
   if(t.includes('analysis') || t.includes('eda')) return <LineChart className="w-6 h-6 text-emerald-400" />;
   if(t.includes('database')) return <Database className="w-6 h-6 text-blue-400" />;
 
-  // Default Fallback
   return <Code className="w-6 h-6 text-zinc-400" />;
 };
 
@@ -181,21 +178,8 @@ export default function Portfolio() {
                   <h3 className="text-amber-400 font-bold uppercase tracking-widest mb-4 flex items-center gap-2 text-xs">
                     <span className="w-1.5 h-1.5 bg-amber-500 rounded-full" /> Professional Summary
                   </h3>
-                  <p className="text-zinc-300 mb-14 font-sans leading-loose text-lg font-light">{data.basics.summary}</p>
-                  
-                  <h3 className="text-amber-400 font-bold uppercase tracking-widest mb-6 flex items-center gap-2 text-xs">
-                    <span className="w-1.5 h-1.5 bg-amber-500 rounded-full" /> Key Impact
-                  </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    {data.achievements.slice(0, 4).map((ach, i) => (
-                      <div key={i} className="border border-zinc-800/50 bg-zinc-950/30 p-6 rounded-xl text-center hover:border-amber-500/30 hover:bg-zinc-900 transition-all duration-300 flex flex-col justify-center h-full group">
-                        <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-br from-amber-300 to-amber-600 mb-3 group-hover:scale-110 transition-transform">{ach.metric}</div>
-                        <div className="text-[11px] text-zinc-400 uppercase tracking-wider line-clamp-3 leading-snug font-medium" title={ach.context}>
-                          {ach.context}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                  {/* Removed the Key Impact section from here */}
+                  <p className="text-zinc-300 font-sans leading-loose text-lg font-light">{data.basics.summary}</p>
                 </div>
               </motion.div>
             </section>
@@ -258,53 +242,70 @@ export default function Portfolio() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-8">
-                {data.projects.map((proj, i) => (
-                  <motion.div 
-                    key={i}
-                    initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
-                    whileHover={{ y: -5 }}
-                    className="group bg-zinc-900/30 backdrop-blur-xl rounded-2xl border border-zinc-800 hover:border-amber-500/40 overflow-hidden flex flex-col h-full relative shadow-lg transition-all duration-500"
-                  >
-                    {proj.image && (
-                      <div className="w-full h-48 md:h-56 overflow-hidden relative border-b border-zinc-800">
-                        <div className="absolute inset-0 bg-zinc-950" />
-                        <img 
-                          src={proj.image} 
-                          alt={proj.title}
-                          className="w-full h-full object-cover object-top opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 relative z-10"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-900/20 to-transparent z-10" />
-                      </div>
-                    )}
+                {data.projects.map((proj, i) => {
+                  // If project doesn't have a specific link, default to main GitHub profile
+                  const projectLink = (proj as any).link || `https://${data.basics.links[1].url}`;
 
-                    <div className="p-8 flex flex-col flex-grow relative z-20 bg-zinc-950/50">
-                      <div className="flex justify-between items-start mb-6">
-                        <h3 className="text-xl font-bold text-zinc-100 group-hover:text-amber-400 transition-colors w-full">
-                          {proj.title}
-                        </h3>
+                  return (
+                    <motion.div 
+                      key={i}
+                      initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
+                      whileHover={{ y: -5 }}
+                      className="group bg-zinc-900/30 backdrop-blur-xl rounded-2xl border border-zinc-800 hover:border-amber-500/40 overflow-hidden flex flex-col h-full relative shadow-lg transition-all duration-500"
+                    >
+                      {proj.image && (
+                        <div className="w-full h-48 md:h-56 overflow-hidden relative border-b border-zinc-800">
+                          <div className="absolute inset-0 bg-zinc-950" />
+                          <img 
+                            src={proj.image} 
+                            alt={proj.title}
+                            className="w-full h-full object-cover object-top opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 relative z-10"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-900/20 to-transparent z-10" />
+                        </div>
+                      )}
+
+                      <div className="p-8 flex flex-col flex-grow relative z-20 bg-zinc-950/50">
+                        {/* PROJECT HEADER WITH GITHUB ICON */}
+                        <div className="flex justify-between items-start mb-6 gap-4">
+                          <h3 className="text-xl font-bold text-zinc-100 group-hover:text-amber-400 transition-colors">
+                            {proj.title}
+                          </h3>
+                          <a 
+                            href={projectLink}
+                            target="_blank"
+                            rel="noreferrer"
+                            title="View Repository"
+                            className="p-2.5 rounded-full bg-zinc-900 border border-zinc-700 hover:border-amber-500/50 hover:bg-amber-500/10 hover:text-amber-400 text-zinc-400 transition-all shrink-0 flex items-center justify-center shadow-sm"
+                          >
+                            <Github size={18} />
+                          </a>
+                        </div>
+                        
+                        <div className="flex flex-wrap gap-2 mb-6">
+                          {proj.stack.map(tech => (
+                            <span key={tech} className="text-[10px] uppercase font-mono tracking-widest px-2.5 py-1 bg-zinc-900 border border-zinc-700 text-amber-300 rounded-full">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                        
+                        <ul className="space-y-3 mt-auto">
+                          {proj.bullets.map((bullet, j) => (
+                            <li key={j} className="text-sm text-zinc-400 flex gap-3 font-light">
+                              <span className="text-amber-500 block mt-1 shrink-0">•</span>
+                              <span className="leading-relaxed">{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {proj.stack.map(tech => (
-                          <span key={tech} className="text-[10px] uppercase font-mono tracking-widest px-2.5 py-1 bg-zinc-900 border border-zinc-700 text-amber-300 rounded-full">
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                      <ul className="space-y-3 mt-auto">
-                        {proj.bullets.map((bullet, j) => (
-                          <li key={j} className="text-sm text-zinc-400 flex gap-3 font-light">
-                            <span className="text-amber-500 block mt-1 shrink-0">•</span>
-                            <span className="leading-relaxed">{bullet}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </motion.div>
-                ))}
+                    </motion.div>
+                  )
+                })}
               </div>
             </section>
 
-            {/* 5. SKILLS - BRAND NEW PREMIUM GRID LAYOUT */}
+            {/* 5. SKILLS - PREMIUM GRID LAYOUT */}
             <section id="skills" className="scroll-mt-24">
               <div className="mb-12 border-b border-zinc-800 pb-4">
                 <h2 className="text-4xl md:text-5xl font-black text-zinc-100 tracking-tight flex flex-col gap-2">
@@ -323,7 +324,6 @@ export default function Portfolio() {
                       <span className="w-6 h-[1px] bg-zinc-700" /> {skillGrp.category}
                     </h4>
                     
-                    {/* The new awesome Card Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                       {skillGrp.items.map((item, j) => {
                         const { title, subtitle } = parseSkill(item, skillGrp.category);

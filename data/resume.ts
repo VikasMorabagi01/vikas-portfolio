@@ -48,46 +48,43 @@ export const data = {
   ],
   // ... (leave the top part of your data file unchanged) ...
 
+  // Inside your data/resume.js file...
+
   "projects": [
     {
       "title": "Uber Mobility Analysis Dashboard",
-      "image": "/projects/uber.png", // ADD THIS LINE (Must match your image filename)
+      "image": "/projects/uber.png",
+      "link": "https://github.com/VikasMorabagi01/Uber-Mobility-Analysis", // <--- ADD THIS LINE
       "stack": ["Power BI", "DAX"],
       "bullets": [
-        "Built an interactive Power BI dashboard analysing Uber ride bookings, revenue, distance, and ride duration to evaluate mobility efficiency and booking trends.",
-        "Developed dynamic KPI selection using DAX and a disconnected measure table to analyse Total Bookings, Booking Value, and Mobility Distance across multiple dimensions.",
-        "Performed location and time-based analysis identifying peak booking hours, top pickup and drop-off locations, and vehicle type preferences to improve operational planning.",
-        "Implemented advanced features including dynamic titles, slicers, bookmarks, drill-through pages, and conditional formatting to enhance user interaction and decision-making insights."
+        "Built an interactive Power BI dashboard analysing Uber ride bookings..."
       ]
     },
     {
       "title": "Meta Advertising Insights Dashboard",
-      "image": "/projects/meta.png", // ADD THIS LINE
+      "image": "/projects/meta.png",
+      "link": "https://github.com/VikasMorabagi01/Meta-Advertising-Insights-Dashboard", // <--- ADD THIS LINE
       "stack": ["Power BI", "SQL", "DAX"],
       "bullets": [
-        "Designed and implemented an end-to-end KPI dashboard analyzing 50,000+ ad impressions using Star Schema modeling and advanced DAX measures.",
-        "Identified conversion bottleneck (13.56% engagement vs 0.61% purchases) through cohort analysis and audience segmentation.",
-        "Recommended data-driven budget reallocation across India and the US, improving funnel efficiency by 18% and enhancing campaign ROI."
+        "Designed and implemented an end-to-end KPI dashboard..."
       ]
     },
     {
       "title": "Telecom Customer Churn Analysis",
-      "image": "/projects/churn.jpg", // ADD THIS LINE
+      "image": "/projects/churn.jpg",
+      "link": "https://github.com/VikasMorabagi01/Telecom-Customer-Churn-Analysis", // <--- ADD THIS LINE
       "stack": ["Python", "Statistical Modeling"],
       "bullets": [
-        "Processed and analyzed 7,043 customer records, identifying a 26.5% churn rate using correlation analysis and feature exploration.",
-        "Discovered 88.5% churn concentration among month-to-month contract users through exploratory data analysis.",
-        "Proposed retention optimization strategy with projected churn reduction of 15–20% through contract migration and improved support services."
+        "Processed and analyzed 7,043 customer records..."
       ]
     },
     {
       "title": "Netflix Content Analytics",
-      "image": "/projects/netflix.png", // ADD THIS LINE
+      "image": "/projects/netflix.png",
+      "link": "https://github.com/VikasMorabagi01/Netflix-Content-Strategy-Analysis", // <--- ADD THIS LINE
       "stack": ["PostgreSQL"],
       "bullets": [
-        "Queried and transformed 8,800+ records solving 15 business intelligence use cases related to content strategy and regional distribution.",
-        "Applied advanced SQL techniques (CTEs, Window Functions, Aggregations, Indexing) improving query performance by 22%.",
-        "Generated actionable insights on genre trends, creator impact, and regional demand to support data-driven content expansion decisions."
+        "Queried and transformed 8,800+ records solving 15 business intelligence use cases..."
       ]
     }
   ],
