@@ -120,23 +120,30 @@ export default function Portfolio() {
 
           <div className="max-w-5xl mx-auto space-y-40">
             
-            {/* 1. CINEMATIC HERO */}
+            {/* 1. CINEMATIC HERO (UPDATED MATCHING YOUR SCREENSHOT) */}
             <section id="home" className="min-h-[85vh] flex flex-col justify-center items-center text-center relative pt-10">
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.05)_0%,transparent_60%)] pointer-events-none" />
               
-              <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-amber-400 font-mono tracking-[0.3em] uppercase text-xs md:text-sm mb-6 flex items-center gap-3">
-                <span className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse shadow-[0_0_10px_#d4af37]" /> {data.basics.title.split(' | ')[0]}
+              {/* TOP LOCATION TEXT */}
+              <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-zinc-400 font-semibold tracking-[0.2em] uppercase text-xs md:text-sm mb-6 flex items-center gap-2 z-10">
+                BASED IN {data.basics.location.toUpperCase()}
               </motion.span>
 
+              {/* HUGE MAIN TITLE (DATA ANALYST) */}
               <motion.h1 
                 initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, ease: "easeOut" }}
-                className="text-6xl md:text-8xl lg:text-[10rem] font-black tracking-tighter leading-none mb-4"
+                className="text-6xl md:text-8xl lg:text-[9rem] font-bold tracking-tight leading-tight mb-8 z-10"
               >
-                <span className="text-zinc-100 block">VIKAS</span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-t from-amber-500 via-amber-200 to-amber-100 block -mt-4 md:-mt-8 lg:-mt-12">MORABAGI</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-b from-white via-amber-100 to-amber-500 pb-4">
+                  {data.basics.title.split(' | ')[0]}
+                </span>
               </motion.h1>
 
-              {/* UPDATED HERO CTA SECTION */}
+              {/* BOTTOM SUBTITLE (HI, I'M VIKAS) */}
+              <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-zinc-300 font-light text-base md:text-lg max-w-3xl leading-relaxed mb-4 z-10">
+                Hi, I'm <span className="font-semibold text-zinc-100">{data.basics.name}</span>. A dedicated data professional extracting, transforming, and analyzing complex datasets to build robust, data-driven solutions.
+              </motion.p>
+
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="flex flex-col items-center justify-center gap-8 mt-10 z-10 w-full">
                 
                 {/* Download Button */}
