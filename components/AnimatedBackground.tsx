@@ -17,8 +17,8 @@ export default function AnimatedBackground() {
     <div className="fixed inset-0 z-[-1] bg-[#050505] overflow-hidden">
       
       {/* 1. Ambient Background Glows (Static & Ultra-Subtle) */}
-      <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-amber-500/5 rounded-full blur-[120px] mix-blend-screen" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-yellow-500/5 rounded-full blur-[120px] mix-blend-screen" />
+      <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-amber-500/5 rounded-full blur-[120px] mix-blend-screen pointer-events-none" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-yellow-500/5 rounded-full blur-[120px] mix-blend-screen pointer-events-none" />
 
       {/* 2. Interactive Spotlight (Follows the user's mouse) */}
       <div 
@@ -28,15 +28,15 @@ export default function AnimatedBackground() {
         }}
       />
 
-      {/* 3. The Precision Data Grid (Fades beautifully at the edges) */}
+      {/* 3. The Precision Data Grid (Made smaller: 2rem x 2rem) */}
       <div 
-        className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none"
+        className="absolute inset-0 z-0 opacity-[0.04] pointer-events-none"
         style={{
           backgroundImage: `
             linear-gradient(to right, #ffffff 1px, transparent 1px),
             linear-gradient(to bottom, #ffffff 1px, transparent 1px)
           `,
-          backgroundSize: '4rem 4rem',
+          backgroundSize: '2rem 2rem', /* <-- Changed from 4rem to 2rem for a tighter grid */
           maskImage: 'radial-gradient(ellipse 100% 100% at 50% 50%, #000 30%, transparent 80%)',
           WebkitMaskImage: 'radial-gradient(ellipse 100% 100% at 50% 50%, #000 30%, transparent 80%)'
         }}
