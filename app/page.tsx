@@ -36,12 +36,16 @@ const getSkillBrandIcon = (title: string) => {
   return <Code className="w-6 h-6 text-zinc-400" />;
 };
 
-// --- PREMIUM ANIMATION SETTINGS ---
-const premiumEasing = [0.16, 1, 0.3, 1]; // Apple-like smooth glide
+// --- BOUNCY SPRING ANIMATION SETTINGS ---
+const bouncyTransition = { 
+  type: "spring", 
+  bounce: 0.4, // Controls how bouncy it is (0 is flat, 1 is super bouncy)
+  duration: 0.8 
+};
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: premiumEasing } }
+  hidden: { opacity: 0, y: 60 }, // Start a bit lower to emphasize the bounce
+  visible: { opacity: 1, y: 0, transition: bouncyTransition }
 };
 
 const staggerContainer = {
@@ -54,7 +58,7 @@ const cardHover = {
   hover: { 
     y: -8, 
     boxShadow: "0px 20px 40px rgba(212, 175, 55, 0.08)",
-    transition: { duration: 0.4, ease: "easeOut" }
+    transition: { type: "spring", bounce: 0.6, duration: 0.6 } // Bouncy hover effect!
   }
 };
 
@@ -85,13 +89,13 @@ export default function Portfolio() {
           <motion.div
             key="splash"
             initial={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.8, ease: premiumEasing } }}
+            exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
             className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black"
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
+              initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.8, ease: premiumEasing }}
+              transition={{ type: "spring", bounce: 0.5, duration: 1 }} // Bouncy splash text
               className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-100 to-amber-600 tracking-tighter mb-8"
             >
               INITIALIZING...
@@ -115,7 +119,7 @@ export default function Portfolio() {
           <motion.div 
             initial={{ y: 100, opacity: 0, x: "-50%" }}
             animate={{ y: 0, opacity: 1, x: "-50%" }}
-            transition={{ delay: 0.5, type: "spring", stiffness: 200, damping: 20 }}
+            transition={{ delay: 0.3, type: "spring", bounce: 0.5, duration: 1 }}
             className="fixed bottom-6 left-1/2 z-50 flex items-center gap-2 md:gap-4 px-4 md:px-6 py-3 rounded-full border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.8)] backdrop-blur-2xl bg-black/60"
           >
             {[
@@ -142,12 +146,12 @@ export default function Portfolio() {
             
             {/* 1. HERO */}
             <section id="home" className="min-h-[85vh] flex flex-col justify-center items-center text-center relative pt-10">
-              <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: premiumEasing }} className="text-zinc-500 font-semibold tracking-[0.2em] uppercase text-xs md:text-sm mb-6 flex items-center gap-2 z-10">
+              <motion.span initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ ...bouncyTransition, delay: 0.1 }} className="text-zinc-500 font-semibold tracking-[0.2em] uppercase text-xs md:text-sm mb-6 flex items-center gap-2 z-10">
                 BASED IN {data.basics.location.toUpperCase()}
               </motion.span>
 
               <motion.h1 
-                initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease: premiumEasing }}
+                initial={{ opacity: 0, scale: 0.8, y: 40 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ ...bouncyTransition, delay: 0.2 }}
                 className="text-6xl md:text-8xl lg:text-[9rem] font-bold tracking-tight leading-tight mb-8 z-10"
               >
                 <span className="text-transparent bg-clip-text bg-gradient-to-b from-white via-amber-100 to-amber-600 pb-4 drop-shadow-sm">
@@ -155,15 +159,15 @@ export default function Portfolio() {
                 </span>
               </motion.h1>
 
-              <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.8, ease: premiumEasing }} className="text-zinc-400 font-light text-base md:text-lg max-w-3xl leading-relaxed mb-4 z-10">
+              <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ ...bouncyTransition, delay: 0.3 }} className="text-zinc-400 font-light text-base md:text-lg max-w-3xl leading-relaxed mb-4 z-10">
                 Hi, I'm <span className="font-semibold text-zinc-100">{data.basics.name}</span>. A dedicated data professional extracting, transforming, and analyzing complex datasets to build robust, data-driven solutions.
               </motion.p>
 
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8, ease: premiumEasing }} className="flex flex-col items-center justify-center gap-8 mt-10 z-10 w-full">
+              <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ ...bouncyTransition, delay: 0.4 }} className="flex flex-col items-center justify-center gap-8 mt-10 z-10 w-full">
                 <a 
                   href="/resume.pdf" 
                   download="Vikas_Morabagi_Resume.pdf"
-                  className="px-8 py-4 bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 hover:brightness-110 text-black font-bold tracking-widest uppercase rounded-full shadow-[0_0_30px_rgba(212,175,55,0.15)] hover:shadow-[0_0_50px_rgba(212,175,55,0.4)] transition-all flex items-center gap-3"
+                  className="px-8 py-4 bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 hover:brightness-110 text-black font-bold tracking-widest uppercase rounded-full shadow-[0_0_30px_rgba(212,175,55,0.15)] hover:shadow-[0_0_50px_rgba(212,175,55,0.4)] transition-all flex items-center gap-3 active:scale-95"
                 >
                   DOWNLOAD RESUME <Download size={18} />
                 </a>
@@ -171,9 +175,9 @@ export default function Portfolio() {
                 <div className="flex items-center justify-center w-full max-w-[320px] gap-6 mt-2">
                   <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent to-amber-500/30"></div>
                   <div className="flex items-center gap-5">
-                    <a href={`mailto:${data.basics.email}`} className="text-zinc-500 hover:text-amber-400 transition-colors"><Mail size={24} /></a>
-                    <a href={`https://${data.basics.links[1].url}`} target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-amber-400 transition-colors"><Github size={24} /></a>
-                    <a href={`https://${data.basics.links[0].url}`} target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-amber-400 transition-colors"><Linkedin size={24} /></a>
+                    <a href={`mailto:${data.basics.email}`} className="text-zinc-500 hover:text-amber-400 hover:-translate-y-1 transition-all"><Mail size={24} /></a>
+                    <a href={`https://${data.basics.links[1].url}`} target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-amber-400 hover:-translate-y-1 transition-all"><Github size={24} /></a>
+                    <a href={`https://${data.basics.links[0].url}`} target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-amber-400 hover:-translate-y-1 transition-all"><Linkedin size={24} /></a>
                   </div>
                   <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent to-amber-500/30"></div>
                 </div>
@@ -292,12 +296,12 @@ export default function Portfolio() {
 
                           <button onClick={() => toggleProject(i)} className="flex items-center gap-2 text-xs uppercase tracking-widest text-zinc-500 hover:text-amber-400 transition-colors mt-auto font-bold w-fit">
                             {isExpanded ? "Hide Details" : "View Details"}
-                            <motion.div animate={{ rotate: isExpanded ? 180 : 0 }}><ChevronDown size={16} /></motion.div>
+                            <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ type: "spring", bounce: 0.5 }}><ChevronDown size={16} /></motion.div>
                           </button>
                           
                           <AnimatePresence>
                             {isExpanded && (
-                              <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.4, ease: premiumEasing }} className="overflow-hidden">
+                              <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ type: "spring", bounce: 0.2, duration: 0.5 }} className="overflow-hidden">
                                 <ul className="space-y-4 mt-6 pt-6 border-t border-white/5">
                                   {proj.bullets.map((bullet, j) => (
                                     <li key={j} className="text-sm text-zinc-400 flex gap-4 font-light leading-relaxed">
