@@ -14,7 +14,8 @@ export default function AnimatedBackground() {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-[-1] bg-[#050505] overflow-hidden">
+    // Changed bg-[#050505] to bg-black for true AMOLED pure black
+    <div className="fixed inset-0 z-[-1] bg-black overflow-hidden">
       
       {/* 1. Ambient Background Glows (Static & Ultra-Subtle) */}
       <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-amber-500/5 rounded-full blur-[120px] mix-blend-screen pointer-events-none" />
@@ -28,7 +29,7 @@ export default function AnimatedBackground() {
         }}
       />
 
-      {/* 3. The Precision Data Grid (Made smaller: 2rem x 2rem) */}
+      {/* 3. The Precision Data Grid (2rem x 2rem) */}
       <div 
         className="absolute inset-0 z-0 opacity-[0.04] pointer-events-none"
         style={{
@@ -36,7 +37,7 @@ export default function AnimatedBackground() {
             linear-gradient(to right, #ffffff 1px, transparent 1px),
             linear-gradient(to bottom, #ffffff 1px, transparent 1px)
           `,
-          backgroundSize: '2rem 2rem', /* <-- Changed from 4rem to 2rem for a tighter grid */
+          backgroundSize: '2rem 2rem',
           maskImage: 'radial-gradient(ellipse 100% 100% at 50% 50%, #000 30%, transparent 80%)',
           WebkitMaskImage: 'radial-gradient(ellipse 100% 100% at 50% 50%, #000 30%, transparent 80%)'
         }}
