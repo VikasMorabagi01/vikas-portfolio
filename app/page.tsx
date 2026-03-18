@@ -4,27 +4,44 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
   Download, Terminal, Briefcase, Code2, GraduationCap, 
   ChevronRight, Github, Linkedin, Cpu, Database, 
-  FileCode2, BarChart3, Table, Workflow, Network, 
-  BrainCircuit, LineChart, Cloud, BookOpen, Code 
+  BarChart3, Table, Workflow, Network, 
+  BrainCircuit, LineChart, Code 
 } from "lucide-react";
 import AnimatedBackground from "../components/AnimatedBackground";
 import { data } from "../data/resume"; 
 
-const getSkillIcon = (skillName: string) => {
-  const lowerSkill = skillName.toLowerCase();
-  if (lowerSkill.includes("sql") || lowerSkill.includes("database") || lowerSkill.includes("postgre") || lowerSkill.includes("mysql")) 
-    return <Database size={14} className="text-amber-400" />;
-  if (lowerSkill.includes("python")) return <FileCode2 size={14} className="text-blue-400" />;
-  if (lowerSkill.includes("power bi") || lowerSkill.includes("tableau")) return <BarChart3 size={14} className="text-amber-500" />;
-  if (lowerSkill.includes("excel")) return <Table size={14} className="text-emerald-500" />;
-  if (lowerSkill.includes("etl") || lowerSkill.includes("pipeline")) return <Workflow size={14} className="text-orange-400" />;
-  if (lowerSkill.includes("data model") || lowerSkill.includes("transform") || lowerSkill.includes("wrangling")) return <Network size={14} className="text-purple-400" />;
-  if (lowerSkill.includes("predictive") || lowerSkill.includes("forecasting") || lowerSkill.includes("ai")) return <BrainCircuit size={14} className="text-rose-400" />;
-  if (lowerSkill.includes("analysis") || lowerSkill.includes("eda") || lowerSkill.includes("statistic")) return <LineChart size={14} className="text-emerald-400" />;
-  if (lowerSkill.includes("azure") || lowerSkill.includes("cloud")) return <Cloud size={14} className="text-cyan-400" />;
-  if (lowerSkill.includes("git")) return <Github size={14} className="text-zinc-300" />;
-  if (lowerSkill.includes("jupyter")) return <BookOpen size={14} className="text-orange-500" />;
-  return <Code size={14} className="text-zinc-400" />;
+// 1. CLEVER PARSER: Splits "SQL (CTEs, Joins)" into Title: "SQL" and Subtitle: "CTEs, Joins"
+const parseSkill = (rawString: string, categoryName: string) => {
+  const match = rawString.match(/^(.*?)(?:\s*\((.*?)\))?$/);
+  const title = match?.[1]?.trim() || rawString;
+  const subtitle = match?.[2]?.trim() || categoryName; // Fallback to category if no parentheses
+  return { title, subtitle };
+};
+
+// 2. ICON MATCHER: Pulls colorful brand logos for tech, and premium icons for concepts
+const getSkillBrandIcon = (title: string) => {
+  const t = title.toLowerCase();
+  
+  // Official Colored Devicons
+  if(t.includes('python')) return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" className="w-6 h-6" alt="Python" />;
+  if(t.includes('postgresql')) return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" className="w-6 h-6" alt="PostgreSQL" />;
+  if(t.includes('mysql') || t === 'sql') return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" className="w-6 h-6" alt="MySQL" />;
+  if(t.includes('azure')) return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" className="w-6 h-6" alt="Azure" />;
+  if(t.includes('git') && !t.includes('github')) return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" className="w-6 h-6" alt="Git" />;
+  if(t.includes('jupyter')) return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg" className="w-6 h-6" alt="Jupyter" />;
+  
+  // Custom styled Lucide icons for things that don't have standard devicons
+  if(t.includes('github')) return <Github className="w-6 h-6 text-zinc-100" />;
+  if(t.includes('power bi') || t.includes('tableau')) return <BarChart3 className="w-6 h-6 text-yellow-500" />;
+  if(t.includes('excel')) return <Table className="w-6 h-6 text-emerald-500" />;
+  if(t.includes('etl') || t.includes('pipeline')) return <Workflow className="w-6 h-6 text-orange-400" />;
+  if(t.includes('data model') || t.includes('transform')) return <Network className="w-6 h-6 text-purple-400" />;
+  if(t.includes('predictive') || t.includes('ai')) return <BrainCircuit className="w-6 h-6 text-rose-400" />;
+  if(t.includes('analysis') || t.includes('eda')) return <LineChart className="w-6 h-6 text-emerald-400" />;
+  if(t.includes('database')) return <Database className="w-6 h-6 text-blue-400" />;
+
+  // Default Fallback
+  return <Code className="w-6 h-6 text-zinc-400" />;
 };
 
 export default function Portfolio() {
@@ -287,34 +304,44 @@ export default function Portfolio() {
               </div>
             </section>
 
-            {/* 5. SKILLS */}
+            {/* 5. SKILLS - BRAND NEW PREMIUM GRID LAYOUT */}
             <section id="skills" className="scroll-mt-24">
               <div className="mb-12 border-b border-zinc-800 pb-4">
-                <h2 className="text-4xl md:text-5xl font-black text-zinc-100 tracking-tight uppercase flex items-center gap-4">
-                  <Cpu className="text-amber-500 h-10 w-10" /> Skills
+                <h2 className="text-4xl md:text-5xl font-black text-zinc-100 tracking-tight flex flex-col gap-2">
+                  <span className="flex items-center gap-4 uppercase"><Cpu className="text-amber-500 h-10 w-10" /> Tech Stack</span>
+                  <span className="text-base font-light text-zinc-400 tracking-normal mt-2">I'm proficient in a range of modern technologies that empower me to build highly functional solutions.</span>
                 </h2>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-12">
                 {data.skills.map((skillGrp, i) => (
                   <motion.div 
                     key={i}
                     initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                    className="bg-zinc-900/30 backdrop-blur-xl rounded-2xl p-8 border border-zinc-800 hover:border-amber-500/30 transition-colors"
                   >
-                    <h4 className="text-amber-400 font-mono mb-6 text-sm uppercase tracking-widest flex items-center gap-3">
-                      <span className="w-4 h-[1px] bg-amber-500/50" /> {skillGrp.category}
+                    <h4 className="text-zinc-500 font-mono mb-6 text-sm uppercase tracking-widest flex items-center gap-3">
+                      <span className="w-6 h-[1px] bg-zinc-700" /> {skillGrp.category}
                     </h4>
-                    <div className="flex flex-wrap gap-3">
-                      {skillGrp.items.map((item, j) => (
-                        <span 
-                          key={j} 
-                          className="flex items-center gap-2 px-4 py-2 bg-zinc-950/80 border border-zinc-800 hover:border-amber-500/50 hover:bg-amber-500/5 rounded-full text-sm text-zinc-300 font-medium transition-colors cursor-default"
-                        >
-                          {getSkillIcon(item)}
-                          {item}
-                        </span>
-                      ))}
+                    
+                    {/* The new awesome Card Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                      {skillGrp.items.map((item, j) => {
+                        const { title, subtitle } = parseSkill(item, skillGrp.category);
+                        return (
+                          <div 
+                            key={j} 
+                            className="flex items-center gap-4 p-4 rounded-xl bg-zinc-900/40 border border-zinc-800 hover:border-amber-500/30 hover:bg-zinc-800/60 transition-all duration-300 group cursor-default shadow-sm hover:shadow-md"
+                          >
+                            <div className="w-12 h-12 rounded-lg bg-zinc-950 flex items-center justify-center shrink-0 border border-zinc-800 group-hover:border-amber-500/30 transition-colors">
+                              {getSkillBrandIcon(title)}
+                            </div>
+                            <div className="flex flex-col overflow-hidden">
+                              <span className="text-sm font-bold text-zinc-100 truncate group-hover:text-amber-400 transition-colors">{title}</span>
+                              <span className="text-[11px] text-zinc-500 truncate mt-0.5 font-medium tracking-wide" title={subtitle}>{subtitle}</span>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </motion.div>
                 ))}
