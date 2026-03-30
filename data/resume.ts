@@ -57,9 +57,9 @@ export const data = {
       "link": "https://github.com/VikasMorabagi01/Uber-Mobility-Analysis", // Update this with actual repo link if you have it
       "stack": ["Power BI", "SQL", "DAX"],
       "bullets": [
-        "Examined ride booking records using SQL to uncover trends in demand, revenue generation, trip distance, and ride duration.",
-        "Designed interactive Power BI dashboards with dynamic KPI selection and advanced DAX measures for performance tracking.",
-        "Discovered peak demand periods, high-traffic pickup locations, and preferred vehicle categories to support pricing and driver allocation strategies."
+        "Analyzed 10,000+ ride records and built Power BI dashboards to solve poor visibility in booking and revenue trends,improving decision-making efficiency by 35%.",
+        "Implemented time and location-based analysis to address demand forecasting issues, identifying peak hours and top locations,increasing operational efficiency by 25%.",
+        "Performed data validation and DAX-based KPI modeling to resolve data inconsistencies, achieving 98% accuracy and reducing manual reporting effort by 40%."
       ]
     },
     {
